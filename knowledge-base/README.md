@@ -33,7 +33,7 @@ Follow these steps exactly:
 
 1. Explore this project's codebase shallowly — read the README, top-level config files (package.json, composer.json, pyproject.toml, .env.example, etc.), top-level directory structure, and the 5 most recent git commits.
 
-2. Check if `docs/knowledge-base/` already exists in this project.
+2. Check if `knowledge-base/` already exists in this project.
    - If it exists: stop and ask me how to proceed before making any changes.
    - If it does not exist: continue.
 
@@ -44,7 +44,7 @@ Follow these steps exactly:
    - `03-risk-model/00-index.md`
    - `04-active-sprint/00-index.md`
 
-4. Copy each template to the same relative path under `docs/knowledge-base/` in this project.
+4. Copy each template to the same relative path under `knowledge-base/` in this project.
 
 5. Replace all `{{PLACEHOLDER}}` values with project-specific values:
    a. Infer as many values as possible from your codebase exploration in step 1.
@@ -62,12 +62,12 @@ Follow these steps exactly:
 
    ## Knowledge Base
 
-   This project has a knowledge base at `docs/knowledge-base/`. All agents that consume
+   This project has a knowledge base at `knowledge-base/`. All agents that consume
    the knowledge base must follow the rules below.
 
    ### Reading Rules
 
-   **Step 1 — Always read `docs/knowledge-base/00-master.md` first.**
+   **Step 1 — Always read `knowledge-base/00-master.md` first.**
    This is the index file. It lists all sections with one-line summaries. Based on
    the task at hand, decide which section files to load next. Never load all sections
    at once.
@@ -104,7 +104,7 @@ Follow these steps exactly:
 
    ### Graceful Degradation
 
-   If `docs/knowledge-base/` does not exist, or `docs/knowledge-base/00-master.md`
+   If `knowledge-base/` does not exist, or `knowledge-base/00-master.md`
    is missing or empty, proceed exactly as you would without a knowledge base.
    No error. No assumption. No behavioral change.
 
