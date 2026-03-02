@@ -26,7 +26,7 @@ This directory contains reusable, templatized Claude Code agents that can be set
 ```
 I want to set up Claude Code agents from the engineering-recipes repo into this project.
 
-Source repo: https://github.com/ColoredCow/engineering-recipes (browse the `claude/agents/` directory for all available agents and their README).
+Source repo: https://github.com/anuragk16/engineering-recipes (browse the `claude/agents/` directory for all available agents and their README).
 
 For each agent found there:
 
