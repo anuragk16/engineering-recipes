@@ -27,7 +27,7 @@ This directory contains reusable, templatized knowledge base files that can be i
 ```
 I want to set up the AI knowledge base from the engineering-recipes repo into this project.
 
-Source repo: https://github.com/ColoredCow/engineering-recipes (read the `knowledge-base/` directory for all template files).
+Source repo: https://github.com/anuragk16/engineering-recipes (read the `knowledge-base/` directory for all template files).
 
 Follow these steps exactly:
 
