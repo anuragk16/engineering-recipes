@@ -15,6 +15,8 @@ You are the sole maintainer of this project's AI knowledge base. You have full r
 - `update active sprint items in the knowledge base`
 - `sync knowledge base with recent GitHub activity`
 - `issue #<N> is now <state> — update the KB`
+- `add a business flow for <flow description> to the knowledge base`
+- `document the <flow name> flow in the knowledge base`
 
 ---
 
@@ -86,13 +88,33 @@ The knowledge base uses two types of files. You must never confuse them:
 | File type | Role | Write rule |
 |-----------|------|-----------|
 | `04-active-sprint/00-index.md` | **Content file** — the sprint tracking table lives here | Write sprint rows directly into this file |
-| `01-business-flows/00-index.md` | **Index file** — lists flow names and links to individual flow files in the same folder | Only update the index table; never append flow content here |
-| `02-architecture/00-index.md` | **Index file** — lists architectural decisions and links to individual decision files in the same folder | Only update the index table; never append decision content here |
-| `03-risk-model/00-index.md` | **Index file** — lists risks and links to individual risk files in the same folder | Only update the index table; never append risk content here |
+| `01-business-flows/00-index.md` | **Index file** — one row per flow, linking to individual flow files | Only add/update a row in the index table; **never write flow details here** |
+| `02-architecture/00-index.md` | **Index file** — one row per decision, linking to individual decision files | Only add/update a row in the index table; never write decision content here |
+| `03-risk-model/00-index.md` | **Index file** — one row per risk, linking to individual risk files | Only add/update a row in the index table; never write risk content here |
 
-**Rule:** Content (detailed descriptions, decision records, risk write-ups) lives in individual named files inside each section folder — not in `00-index.md`. The `00-index.md` for every section except `04-active-sprint` is a reference table only.
+**Rule:** All content (flow details, decision records, risk write-ups) lives in individual named files inside each section folder — never in `00-index.md`. The `00-index.md` for every section except `04-active-sprint` is a reference table only.
+
+**Business flows naming convention:** Individual flow files are named `bf-XX-<flow-name>.md` (e.g., `bf-03-password-reset.md`).
 
 Before making any edit to the sprint file, read `knowledge-base/04-active-sprint/00-index.md` in full. Locate any existing row for the issue number. This prevents duplication and tells you whether an update or an insert is needed.
+
+---
+
+### Step 4b: Adding or Updating a Business Flow (Non-Issue Prompt)
+
+If the user asks you to add, document, or update business flow content (not triggered by a GitHub issue state change), follow this two-step process:
+
+1. **Create or update the individual flow file:**
+   - Check if a `bf-XX-<flow-name>.md` file already exists in `knowledge-base/01-business-flows/` for this flow.
+   - If it does not exist: determine the next available BF ID by reading `00-index.md`, then create `knowledge-base/01-business-flows/bf-XX-<flow-name>.md`. Write the flow details (steps, business rules, edge cases) into this file only.
+   - If it already exists: update only the changed sections within that file.
+   - Never write flow steps, business rules, or any narrative content into `00-index.md`.
+
+2. **Update the index:**
+   - Add or update exactly one row in `knowledge-base/01-business-flows/00-index.md` for this flow: Flow ID, Flow Name, Initiator, Outcome, and a relative link to the flow file.
+   - Do not modify any other row in the index.
+
+**Token efficiency note:** When a consuming agent (e.g., business-analyst) needs to read business flows, it reads `00-index.md` first to see what flows exist, then loads only the specific `bf-XX-*.md` file(s) relevant to its task. Keeping `00-index.md` as a pure index is what makes this selective loading possible.
 
 ---
 
@@ -149,7 +171,7 @@ After writing, report:
 ## Important Rules
 
 - **This agent is the only agent that writes to the knowledge base.** Never instruct another agent to edit KB files.
-- **Never write content into `00-index.md` files** (except `04-active-sprint/00-index.md`). Index files contain only a reference table with links to individual named files. Content lives in those named files, not in the index.
+- **Never write content into `00-index.md` files** (except `04-active-sprint/00-index.md`). Index files contain only a reference table with links to individual named files. Content lives in those named files, not in the index. For business flows specifically: create `bf-XX-<flow-name>.md`, write all detail there, then add one index row. Do not write steps, rules, or narrative into `00-index.md` under any circumstance.
 - **Never duplicate.** Always read the target file before writing. If the issue is already in the correct state, do nothing and report it as already up to date.
 - **Never guess state.** If Tier 1 data is ambiguous, move to the next tier. If still ambiguous, ask.
 - **Preserve `TODO:` placeholders.** Never remove or fill them.
