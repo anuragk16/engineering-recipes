@@ -1,17 +1,19 @@
 <!--
-  PURPOSE: Documents the core business processes and user journeys for {{PROJECT_NAME}}.
-  Captures what the system does from a business perspective — not how it is built.
+  PURPOSE: Index of all business processes and user journeys for {{PROJECT_NAME}}.
+  This is a REFERENCE TABLE ONLY. Flow details live in individual files in this directory.
   Used by: business-analyst agent.
 
+  CONTENT RULE:
+  - This file contains ONLY the index table below — never flow details or steps.
+  - Each business flow gets its own file named `bf-XX-<flow-name>.md` in this directory.
+  - When adding a new flow: create the individual file first, then add one row here.
+
   WHAT BELONGS HERE:
-  - Named business flows (login, checkout, approval, etc.)
-  - Who initiates each flow and what the expected outcome is
-  - Key decision points and branching conditions
-  - Business rules embedded in each flow
+  - A row per flow: ID, name, primary user/initiator, expected outcome, link to the flow file
 
   WHAT DOES NOT BELONG HERE:
-  - Technical implementation details (API endpoints, DB schema, code paths)
-  - Deployment or infrastructure concerns
+  - Flow steps, business rules, edge cases, or any narrative content
+  - Those belong in the individual flow files
 -->
 
 # Business Flows: {{PROJECT_NAME}}
@@ -23,63 +25,21 @@
 
 ## Flow Index
 
-| Flow ID | Flow Name | Initiator | Outcome |
-|---------|-----------|-----------|---------|
-| BF-01 | {{FLOW_NAME_1}} | {{INITIATOR_1}} | {{OUTCOME_1}} |
-| BF-02 | {{FLOW_NAME_2}} | {{INITIATOR_2}} | {{OUTCOME_2}} |
+| Flow ID | Flow Name | Initiator | Outcome | File |
+|---------|-----------|-----------|---------|------|
+| BF-01 | {{FLOW_NAME_1}} | {{INITIATOR_1}} | {{OUTCOME_1}} | [bf-01-{{flow-slug-1}}.md](bf-01-{{flow-slug-1}}.md) |
+| BF-02 | {{FLOW_NAME_2}} | {{INITIATOR_2}} | {{OUTCOME_2}} | [bf-02-{{flow-slug-2}}.md](bf-02-{{flow-slug-2}}.md) |
 
-<!-- TODO: Add all primary business flows for this project. -->
-
----
-
-## Flow Details
-
-### BF-01: {{FLOW_NAME_1}}
-
-**Initiator:** {{INITIATOR_1}}
-**Trigger:** {{TRIGGER_CONDITION_1}}
-**Expected Outcome:** {{OUTCOME_1}}
-
-**Steps:**
-1. {{STEP_1}}
-2. {{STEP_2}}
-3. {{STEP_3}}
-
-**Business Rules:**
-- {{BUSINESS_RULE_1}}
-- {{BUSINESS_RULE_2}}
-
-**Edge Cases / Exceptions:**
-- {{EDGE_CASE_1}}
-
----
-
-<!-- TODO: Add detail sections for each flow listed in the index above. -->
+<!-- TODO: Add a row for each business flow. Create the individual .md file first, then link it here. -->
 
 ---
 
 <!--
   EXAMPLE (delete this block once real flows are added):
 
-  ### BF-01: Leave Approval
-
-  **Initiator:** Employee
-  **Trigger:** Employee submits a leave request via the HR portal
-  **Expected Outcome:** Leave is approved or rejected; employee is notified by email
-
-  **Steps:**
-  1. Employee selects leave type, date range, and reason
-  2. System checks available leave balance
-  3. Request is routed to employee's direct manager for approval
-  4. Manager approves or rejects with an optional note
-  5. Employee receives an email notification with the decision
-
-  **Business Rules:**
-  - Employees cannot apply for leave less than 24 hours in advance (except emergency leave)
-  - Leave balance must cover the requested days at time of submission
-  - Requests exceeding 10 days require HR secondary approval
-
-  **Edge Cases / Exceptions:**
-  - If manager is on leave, the request escalates to the skip-level manager after 48 hours
-  - Emergency leave bypasses the balance check but still requires approval
+  | Flow ID | Flow Name        | Initiator | Outcome                                     | File                             |
+  |---------|------------------|-----------|---------------------------------------------|----------------------------------|
+  | BF-01   | Leave Approval   | Employee  | Leave approved/rejected; employee notified  | [bf-01-leave-approval.md](bf-01-leave-approval.md) |
+  | BF-02   | Expense Claim    | Employee  | Claim reimbursed or rejected within 5 days  | [bf-02-expense-claim.md](bf-02-expense-claim.md)   |
+  | BF-03   | Employee Onboard | HR Admin  | New hire fully set up in all systems        | [bf-03-employee-onboard.md](bf-03-employee-onboard.md) |
 -->
