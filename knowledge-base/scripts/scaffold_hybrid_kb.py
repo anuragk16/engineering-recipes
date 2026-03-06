@@ -9,7 +9,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 TEMPLATES = ROOT / "knowledge-base" / "templates"
 SCRIPT_ROOT = ROOT / "knowledge-base" / "scripts"
-WORKFLOW_ROOT = ROOT / "knowledge-base" / "workflows"
 CORE_FILES = [
     "00-index.md",
     "architecture.md",
@@ -29,7 +28,6 @@ ADVANCED_MAP = {
 CLAUDE_SECTION = TEMPLATES / "CLAUDE.section.md"
 SUPPORT_SCRIPTS = [
     "validate_hybrid_kb.py",
-    "sync_active_sprint.py",
 ]
 
 
@@ -92,11 +90,6 @@ def main() -> int:
         default="",
         help="Comma-separated Tier 2 modules to enable (decision-log,incident-log,feature-history,integration-map,metrics,known-constraints)",
     )
-    parser.add_argument(
-        "--with-workflow",
-        action="store_true",
-        help="Install the example sprint sync workflow into .github/workflows/",
-    )
     parser.add_argument("--overwrite", action="store_true", help="Overwrite existing KB files")
     args = parser.parse_args()
 
@@ -131,15 +124,6 @@ def main() -> int:
             )
         )
 
-    if args.with_workflow:
-        actions.append(
-            copy_file(
-                WORKFLOW_ROOT / "sync-active-sprint.yml",
-                project_root / ".github" / "workflows" / "sync-active-sprint.yml",
-                args.overwrite,
-            )
-        )
-
     actions.append(configure_kb_config(kb_root / ".kb-config.yml", enabled))
     actions.append(ensure_claude_section(project_root))
 
@@ -150,6 +134,7 @@ def main() -> int:
         print(f"- enabled Tier 2: {', '.join(enabled)}")
     else:
         print("- enabled Tier 2: none")
+    print("- validate from the project root with: python3 knowledge-base/scripts/validate_hybrid_kb.py .")
     return 0
 
 

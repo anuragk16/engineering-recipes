@@ -104,7 +104,7 @@ The knowledge base uses two types of files. You must never confuse them:
 | `active-sprint.md` | **Canonical V1 content file** — the sprint tracking table lives here | Write or regenerate auto-managed sprint sections here |
 | `04-active-sprint/00-index.md` | **Legacy sprint file** | Only use when the canonical V1 sprint file is absent |
 | `business-flows.md`, `architecture.md`, `risks.md` | Human-owned Tier 1 KB files | Do not rewrite automatically unless the user explicitly requests it |
-| `advanced/*.md` | Optional Tier 2 files | Append only when the user asks or when the workflow explicitly calls for it |
+| `advanced/*.md` | Optional Tier 2 files | Append only when the user asks or when the project explicitly uses a maintenance process for them |
 
 Before making any sprint edit, read the target sprint file in full. Locate any existing row or generated section entry for the issue number. This prevents duplication and tells you whether to update or regenerate.
 

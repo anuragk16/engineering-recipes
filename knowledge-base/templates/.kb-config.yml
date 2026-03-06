@@ -24,11 +24,6 @@ loading_defaults:
   incident_response:
     - risks.md
     - advanced/incident-log.md
-auto_update:
-  active_sprint:
-    mode: hybrid
-    schedule: weekly
-    owner: knowledge-base-manager
 compatibility:
   legacy_entrypoint: knowledge-base/00-master.md
   legacy_sprint_file: knowledge-base/04-active-sprint/00-index.md

@@ -57,7 +57,7 @@ def main() -> int:
     config_path = root / "knowledge-base/.kb-config.yml"
     if config_path.exists():
         contents = config_path.read_text()
-        for key in ["version:", "source_of_truth:", "loading_defaults:", "auto_update:"]:
+        for key in ["version:", "source_of_truth:", "loading_defaults:"]:
             if key not in contents:
                 errors.append(f"missing config key: {key.rstrip(':')}")
         for module in read_enabled_tier2(config_path):
