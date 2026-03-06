@@ -30,24 +30,46 @@ Follow these steps exactly:
    - `active-sprint.md`
    - `risks.md`
    - `.kb-config.yml`
-4. Enable Tier 2 files only if the project clearly needs them or I explicitly ask for them.
-5. Copy the reusable helper scripts into `knowledge-base/scripts/`.
-6. Check whether `.claude/agents/knowledge-base-manager.md` already exists.
+4. Evaluate whether Tier 2 is needed for this project.
+   - Use evidence only from the codebase and project docs.
+   - Consider Tier 2 justified only when the project shows real complexity such as:
+     - recurring incidents or fragile areas
+     - multiple external integrations
+     - long-lived architecture decisions worth preserving
+     - hard technical or business constraints
+     - meaningful shipped feature history that would help onboarding
+   - If Tier 2 does NOT appear justified, recommend Tier 1 only.
+5. If Tier 2 may be useful, present a recommendation table before creating any Tier 2 files.
+   For each optional file below, mark one of: `Recommend`, `Optional`, `Do Not Recommend`, and give a one-line reason.
+   - `advanced/decision-log.md`
+   - `advanced/incident-log.md`
+   - `advanced/feature-history.md`
+   - `advanced/integration-map.md`
+   - `advanced/metrics.md`
+   - `advanced/known-constraints.md`
+6. Ask me whether I want Tier 2 for this project.
+   - If I say no: continue with Tier 1 only.
+   - If I say yes: ask me to confirm exactly which Tier 2 files to include, using your recommendations as the default suggestion.
+   - Do not create any Tier 2 files until I confirm the selection.
+7. Copy the reusable helper scripts into `knowledge-base/scripts/`.
+8. Check whether `.claude/agents/knowledge-base-manager.md` already exists.
    - If it does not exist:
      - create `.claude/agents/` if needed
      - copy `claude/agents/knowledge-base-manager/knowledge-base-manager.md` into `.claude/agents/knowledge-base-manager.md`
    - If it already exists: do not overwrite it silently. Mention that it already exists in your summary.
-7. Replace placeholders only when you can infer values confidently from the codebase.
-8. If a value cannot be inferred confidently, leave the placeholder unchanged and list it in your summary. Do not guess.
-9. Add the `Knowledge Base` section from `CLAUDE.section.md` to the project root `CLAUDE.md` if it is not already present.
-10. Ensure the project root `CLAUDE.md` has a `Custom Agents` section that includes `knowledge-base-manager`.
+9. Replace placeholders only when you can infer values confidently from the codebase.
+10. If a value cannot be inferred confidently, leave the placeholder unchanged and list it in your summary. Do not guess.
+11. Add the `Knowledge Base` section from `CLAUDE.section.md` to the project root `CLAUDE.md` if it is not already present.
+12. Ensure the project root `CLAUDE.md` has a `Custom Agents` section that includes `knowledge-base-manager`.
     - If the section is missing, create it.
     - If the section exists but does not list `knowledge-base-manager`, add it.
     - Do not duplicate an existing entry.
-11. At the end, show me:
+13. At the end, show me:
    - files created
    - placeholders inferred
    - placeholders left unresolved
+   - whether Tier 2 was recommended
+   - which Tier 2 files were recommended vs not recommended
    - Tier 2 modules enabled
    - whether `knowledge-base-manager` agent was installed or already existed
    - the exact validation command I should run from this project's root:
