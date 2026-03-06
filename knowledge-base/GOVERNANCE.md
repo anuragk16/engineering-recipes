@@ -47,7 +47,7 @@ The following changes require maintainer review in `engineering-recipes`:
 2. Check whether the change is breaking or non-breaking.
 3. Run the KB validator after applying changes.
 4. Update the project root `CLAUDE.md` guidance if the adapter contract changed.
-5. For sprint automation changes, test in a branch before scheduling.
+5. Run the KB validator after structural KB changes.
 
 ## Recommended Maintainer Checklist
 

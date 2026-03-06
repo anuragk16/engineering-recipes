@@ -28,7 +28,6 @@ ADVANCED_MAP = {
 CLAUDE_SECTION = TEMPLATES / "CLAUDE.section.md"
 SUPPORT_SCRIPTS = [
     "validate_hybrid_kb.py",
-    "sync_active_sprint.py",
 ]
 
 
@@ -135,6 +134,7 @@ def main() -> int:
         print(f"- enabled Tier 2: {', '.join(enabled)}")
     else:
         print("- enabled Tier 2: none")
+    print("- validate from the project root with: python3 knowledge-base/scripts/validate_hybrid_kb.py .")
     return 0
 
 

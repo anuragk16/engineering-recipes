@@ -15,7 +15,7 @@ Provide a project-local, token-efficient knowledge base that is easy to scaffold
 2. Small default footprint: Tier 1 is required and intentionally compact.
 3. Optional advanced depth: Tier 2 is opt-in per project.
 4. Deterministic reads: agents read the entry file first, then load only mapped files.
-5. Minimal write surface: `active-sprint.md` is the main automation target.
+5. Minimal maintenance surface: Tier 1 stays small and predictable.
 6. Tool agnostic content: KB content stays plain Markdown plus lightweight config.
 
 ## Canonical Project Layout
@@ -62,7 +62,7 @@ knowledge-base/
 | `architecture.md` | Human | Update on major architecture changes |
 | `business-flows.md` | Human | Update when business flows materially change |
 | `risks.md` | Human | Update during reviews, incidents, or notable risk discovery |
-| `active-sprint.md` | Automation with human review | Primary auto-managed file |
+| `active-sprint.md` | Human or project-specific process | Current delivery state file |
 | Tier 2 append-only logs | Human or semi-automated | Prefer append-only entries |
 
 ## Read Contract
@@ -92,7 +92,7 @@ If `knowledge-base/` or the entry file does not exist, agents proceed without KB
 ## Write Contract
 
 1. Only the designated KB maintenance flow may write automated updates.
-2. `active-sprint.md` is the default automation target.
+2. This starter kit does not ship a sprint sync script or workflow.
 3. Tier 2 logs should prefer append-only updates.
 4. Agents that consume KB context remain read-only.
 
@@ -103,8 +103,6 @@ Minimum supported keys:
 - `project.name`
 - `enabled_tier2`
 - `loading_defaults`
-- `auto_update.active_sprint.mode`
-- `auto_update.active_sprint.schedule`
 
 ## Compatibility Rules
 
@@ -119,15 +117,12 @@ Agents and helpers may support these legacy files:
 ### Legacy write support
 Sprint sync helpers may write to legacy sprint files only when the canonical V1 sprint file is absent.
 
-## Automation Cadence
-
-Supported V1 modes:
-- `on-demand`
-- `manual`
-- `agent-driven`
+## Maintenance Cadence
 
 Recommended default:
-- `on-demand` via script or KB maintenance agent.
+- update Tier 1 when project reality changes
+- use append-only updates for Tier 2 logs where possible
+- run the KB validator after setup or structural changes
 
 ## Rollout Order
 

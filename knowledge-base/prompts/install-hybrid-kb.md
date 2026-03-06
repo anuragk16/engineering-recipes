@@ -11,7 +11,6 @@ Source directory to read from:
 - `knowledge-base/templates/.kb-config.yml`
 - `knowledge-base/templates/CLAUDE.section.md`
 - `knowledge-base/scripts/validate_hybrid_kb.py`
-- `knowledge-base/scripts/sync_active_sprint.py`
 - `claude/agents/knowledge-base-manager/knowledge-base-manager.md`
 - `claude/agents/knowledge-base-manager/README.md`
 
@@ -51,4 +50,6 @@ Follow these steps exactly:
    - placeholders left unresolved
    - Tier 2 modules enabled
    - whether `knowledge-base-manager` agent was installed or already existed
+   - the exact validation command I should run from this project's root:
+     `python3 knowledge-base/scripts/validate_hybrid_kb.py .`
 ```

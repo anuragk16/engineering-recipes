@@ -11,7 +11,6 @@ This directory contains the V1 hybrid knowledge-base starter kit for project-loc
 - Tier 1 and Tier 2 templates under [`templates/`](templates/)
 - A scaffold script for installing the KB into another project
 - A validation script for checking a KB installation
-- An active sprint sync script for manual or agent-driven updates
 - A copy-paste install prompt for agent-based setup
 
 ## Canonical V1 Layout
@@ -66,6 +65,13 @@ python knowledge-base/scripts/scaffold_hybrid_kb.py /path/to/target-project \
   --enable decision-log,incident-log
 ```
 
+After setup, move into the target project root and validate the KB:
+
+```bash
+cd /path/to/target-project
+python3 knowledge-base/scripts/validate_hybrid_kb.py .
+```
+
 ### Validate an installed KB
 
 ```bash
@@ -76,20 +82,21 @@ python knowledge-base/scripts/validate_hybrid_kb.py /path/to/target-project
 
 See [prompts/install-hybrid-kb.md](prompts/install-hybrid-kb.md).
 
-## Sprint Automation
+## Validation After Setup
 
-`active-sprint.md` is the main automation target.
+The starter kit copies `validate_hybrid_kb.py` into the target project's `knowledge-base/scripts/` directory.
 
-### Manual sync
+Run this from the target project root after installation:
 
 ```bash
-python knowledge-base/scripts/sync_active_sprint.py /path/to/project --repo owner/name
+python3 knowledge-base/scripts/validate_hybrid_kb.py .
 ```
 
-### Scheduled sync
-
-No workflow template is shipped in `engineering-recipes`.
-If a downstream project wants scheduled sync, it should add its own automation around `knowledge-base/scripts/sync_active_sprint.py`.
+The validator checks:
+- required Tier 1 files exist
+- `.kb-config.yml` has the minimum contract keys
+- `00-index.md` references the Tier 1 files
+- enabled Tier 2 modules in config have matching files
 
 ## Legacy Compatibility
 

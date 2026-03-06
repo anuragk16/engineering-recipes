@@ -14,7 +14,7 @@ This note reconciles the pre-existing `engineering-recipes` knowledge-base recip
 | Runtime contract | Mostly documented in `CLAUDE.md` | `.kb-config.yml` plus mirrored `CLAUDE.md` guidance | `.kb-config.yml` is source of truth; `CLAUDE.md` mirrors read rules |
 | Sprint file | `04-active-sprint/00-index.md` | `active-sprint.md` | Standardize on `active-sprint.md`; updater supports legacy fallback |
 | Advanced memory | Not formalized as optional modules | Tier 2 optional modules | Add as explicit optional templates |
-| Automation | Agent-only guidance | Agent plus reusable updater script | Implement reusable sync script; downstream projects may add their own scheduling |
+| Automation | Agent-only guidance | Manual validation plus project-specific maintenance flow | Do not ship sync automation in the starter kit |
 
 ## Decision Gates and Frozen Outcomes
 
@@ -42,8 +42,8 @@ This note reconciles the pre-existing `engineering-recipes` knowledge-base recip
 
 ### DG-6: Automation cadence
 - **Decision:** manual / agent-driven cadence.
-- **Supported modes in this repo:** on-demand sync via script or KB maintenance agent.
-- **Note:** downstream projects may add their own scheduling separately.
+- **Supported modes in this repo:** scaffold + validate only.
+- **Note:** downstream projects may implement their own maintenance flow separately.
 
 ## Migration Impact
 
@@ -73,7 +73,7 @@ Implemented in this repo:
 - `.kb-config.yml` contract
 - scaffold prompt and reusable scripts
 - agent documentation updates
-- manual sprint sync helper
+- KB validation helper
 
 Not implemented in this repo:
 - direct migration of Sneha or IAGES repositories
