@@ -3,7 +3,7 @@
 Paste the following prompt into the target project's coding agent session from the project root.
 
 ```text
-I want to install the hybrid knowledge base starter kit from the `engineering-recipes` repository into this project.
+I want to install the hybrid knowledge base starter kit from the `https://github.com/anuragk16/engineering-recipes` repository into this project.
 
 Source directory to read from:
 - `knowledge-base/templates/`
