@@ -11,7 +11,7 @@ This directory contains the V1 hybrid knowledge-base starter kit for project-loc
 - Tier 1 and Tier 2 templates under [`templates/`](templates/)
 - A scaffold script for installing the KB into another project
 - A validation script for checking a KB installation
-- An active sprint sync script and example workflow template
+- An active sprint sync script for manual or agent-driven updates
 - A copy-paste install prompt for agent-based setup
 
 ## Canonical V1 Layout
@@ -63,8 +63,7 @@ knowledge-base/
 
 ```bash
 python knowledge-base/scripts/scaffold_hybrid_kb.py /path/to/target-project \
-  --enable decision-log,incident-log \
-  --with-workflow
+  --enable decision-log,incident-log
 ```
 
 ### Validate an installed KB
@@ -89,7 +88,8 @@ python knowledge-base/scripts/sync_active_sprint.py /path/to/project --repo owne
 
 ### Scheduled sync
 
-See [workflows/sync-active-sprint.yml](workflows/sync-active-sprint.yml) for a weekly + manual-dispatch example, or install it directly with `--with-workflow`.
+No workflow template is shipped in `engineering-recipes`.
+If a downstream project wants scheduled sync, it should add its own automation around `knowledge-base/scripts/sync_active_sprint.py`.
 
 ## Legacy Compatibility
 

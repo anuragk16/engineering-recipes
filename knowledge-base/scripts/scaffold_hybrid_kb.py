@@ -9,7 +9,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 TEMPLATES = ROOT / "knowledge-base" / "templates"
 SCRIPT_ROOT = ROOT / "knowledge-base" / "scripts"
-WORKFLOW_ROOT = ROOT / "knowledge-base" / "workflows"
 CORE_FILES = [
     "00-index.md",
     "architecture.md",
@@ -92,11 +91,6 @@ def main() -> int:
         default="",
         help="Comma-separated Tier 2 modules to enable (decision-log,incident-log,feature-history,integration-map,metrics,known-constraints)",
     )
-    parser.add_argument(
-        "--with-workflow",
-        action="store_true",
-        help="Install the example sprint sync workflow into .github/workflows/",
-    )
     parser.add_argument("--overwrite", action="store_true", help="Overwrite existing KB files")
     args = parser.parse_args()
 
@@ -127,15 +121,6 @@ def main() -> int:
             copy_file(
                 SCRIPT_ROOT / script_name,
                 kb_root / "scripts" / script_name,
-                args.overwrite,
-            )
-        )
-
-    if args.with_workflow:
-        actions.append(
-            copy_file(
-                WORKFLOW_ROOT / "sync-active-sprint.yml",
-                project_root / ".github" / "workflows" / "sync-active-sprint.yml",
                 args.overwrite,
             )
         )

@@ -123,11 +123,11 @@ Sprint sync helpers may write to legacy sprint files only when the canonical V1 
 
 Supported V1 modes:
 - `on-demand`
-- `scheduled`
-- `hybrid`
+- `manual`
+- `agent-driven`
 
 Recommended default:
-- `hybrid` with weekly schedule plus manual dispatch.
+- `on-demand` via script or KB maintenance agent.
 
 ## Rollout Order
 

@@ -12,6 +12,8 @@ Source directory to read from:
 - `knowledge-base/templates/CLAUDE.section.md`
 - `knowledge-base/scripts/validate_hybrid_kb.py`
 - `knowledge-base/scripts/sync_active_sprint.py`
+- `claude/agents/knowledge-base-manager/knowledge-base-manager.md`
+- `claude/agents/knowledge-base-manager/README.md`
 
 Follow these steps exactly:
 
@@ -31,13 +33,22 @@ Follow these steps exactly:
    - `.kb-config.yml`
 4. Enable Tier 2 files only if the project clearly needs them or I explicitly ask for them.
 5. Copy the reusable helper scripts into `knowledge-base/scripts/`.
-6. If this project wants scheduled sprint automation, also copy the workflow template to `.github/workflows/sync-active-sprint.yml`.
+6. Check whether `.claude/agents/knowledge-base-manager.md` already exists.
+   - If it does not exist:
+     - create `.claude/agents/` if needed
+     - copy `claude/agents/knowledge-base-manager/knowledge-base-manager.md` into `.claude/agents/knowledge-base-manager.md`
+   - If it already exists: do not overwrite it silently. Mention that it already exists in your summary.
 7. Replace placeholders only when you can infer values confidently from the codebase.
 8. If a value cannot be inferred confidently, leave the placeholder unchanged and list it in your summary. Do not guess.
 9. Add the `Knowledge Base` section from `CLAUDE.section.md` to the project root `CLAUDE.md` if it is not already present.
-10. At the end, show me:
+10. Ensure the project root `CLAUDE.md` has a `Custom Agents` section that includes `knowledge-base-manager`.
+    - If the section is missing, create it.
+    - If the section exists but does not list `knowledge-base-manager`, add it.
+    - Do not duplicate an existing entry.
+11. At the end, show me:
    - files created
    - placeholders inferred
    - placeholders left unresolved
    - Tier 2 modules enabled
+   - whether `knowledge-base-manager` agent was installed or already existed
 ```
