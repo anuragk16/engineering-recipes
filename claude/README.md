@@ -9,41 +9,23 @@ This directory contains reusable, templatized Claude Code agents that can be set
 | [implementation-planner](agents/implementation-planner/) | Translates feature requests into phased implementation plans using the 4-hour task theory and posts them as GitHub issue comments. |
 | [implementation-executor](agents/implementation-executor/) | Takes an existing implementation plan from a GitHub issue and executes it — implementing each task sequentially, committing after each, pushing, and opening a PR. |
 | [business-analyst](agents/business-analyst/) | Refines raw or ambiguous requests into clear, business-aligned, non-technical requirement documents with explicit scope and acceptance criteria. |
-| [knowledge-base-manager](agents/knowledge-base-manager/) | Syncs the project knowledge base with GitHub issue activity — the only agent with write access to the knowledge base. No placeholders to configure. |
+| [knowledge-base-manager](agents/knowledge-base-manager/) | Syncs the project knowledge base with GitHub issue activity — the only agent with write access to the KB. |
+
+## Knowledge Base Contract
+
+These agents now prefer the hybrid flat-file KB contract:
+- entry file: `knowledge-base/00-index.md`
+- runtime config: `knowledge-base/.kb-config.yml`
+- core files: `architecture.md`, `business-flows.md`, `active-sprint.md`, `risks.md`
+
+Legacy numbered KB layouts remain supported as a fallback for older projects.
 
 ## Setting Up Agents in Your Project
 
-> **Important:** Run the prompt below from your project's root directory so that Claude can access and review your project structure, tech stack, and conventions to automatically fill in placeholders.
+> Run the install steps from your project's root directory so the agent can inspect that project directly.
 
-### Steps
+1. Copy the relevant agent markdown file into `.claude/agents/` in the target project.
+2. If the target project uses the hybrid knowledge base, also install the KB starter kit from [`knowledge-base/`](../knowledge-base/).
+3. Register the agents in the project's root `CLAUDE.md` if needed.
 
-1. Open Claude Code in your project directory.
-2. Copy and paste the prompt below.
-3. Claude will review your codebase, set up the agent files, and ask you about anything it can't infer on its own.
-
-### Prompt
-
-```
-I want to set up Claude Code agents from the engineering-recipes repo into this project.
-
-Source repo: https://github.com/anuragk16/engineering-recipes (browse the `claude/agents/` directory for all available agents and their README).
-
-For each agent found there:
-
-1. Read the agent's template file and its README (which contains the placeholder reference and example values).
-2. Copy the agent template to `.claude/agents/<agent-name>.md` in this project.
-3. Replace all `{{PLACEHOLDER}}` values with project-specific values by:
-   a. First, explore this project's codebase — look at the directory structure, config files, package.json/requirements.txt, existing patterns, test setup, and conventions to infer as many placeholder values as possible.
-   b. For any placeholder you cannot confidently determine from the codebase, ask me before proceeding. Present what you've inferred so far and ask only about the ones you're unsure of.
-4. If the agent template has optional sections that don't apply to this project (e.g., Multi-Repository Context for a single-repo project), remove them.
-5. Register all set-up agents in this project's CLAUDE.md under a "Custom Agents" section. Create CLAUDE.md if it doesn't exist. Do NOT mention how to invoke them (no Task tool, no Skill tool, no slash commands) — Claude Code handles invocation automatically based on the agent's description frontmatter. Example format (markdown):
-   ## Custom Agents
-   Custom agents are defined in `.claude/agents/`. They are automatically invoked based on your request.
-
-   | Agent | When to Use |
-   |-------|-------------|
-   | implementation-planner | When the user asks for an implementation plan, technical breakdown, or task planning for a feature or issue. |
-   
-
-After setup, show me a summary of what was configured and any values you'd recommend I review or adjust.
-```
+For KB installation guidance, start with [knowledge-base/README.md](../knowledge-base/README.md).

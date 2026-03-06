@@ -1,0 +1,34 @@
+version: 1
+source_of_truth: kb-config
+project:
+  name: "{{PROJECT_NAME}}"
+  summary: "{{PROJECT_SUMMARY}}"
+enabled_tier2:
+  # Add optional module keys here when enabled for the project.
+loading_defaults:
+  code_review:
+    - architecture.md
+    - risks.md
+  planning:
+    - business-flows.md
+    - architecture.md
+    - active-sprint.md
+  sprint_work:
+    - active-sprint.md
+  onboarding:
+    - 00-index.md
+    - architecture.md
+    - business-flows.md
+    - active-sprint.md
+    - risks.md
+  incident_response:
+    - risks.md
+    - advanced/incident-log.md
+auto_update:
+  active_sprint:
+    mode: hybrid
+    schedule: weekly
+    owner: knowledge-base-manager
+compatibility:
+  legacy_entrypoint: knowledge-base/00-master.md
+  legacy_sprint_file: knowledge-base/04-active-sprint/00-index.md

@@ -35,13 +35,16 @@ You are an expert business analyst for {{PROJECT_NAME}}.
 
 Before reasoning about requirements, check for a project knowledge base:
 
-1. Check if `knowledge-base/00-master.md` exists.
-   - If it does **not** exist: skip this entire section and proceed normally.
-2. Read `knowledge-base/00-master.md`.
-3. Load the following section — but **only** if it does not contain unfilled `TODO:` placeholders (skip if it has one or more `TODO:` lines):
-   - `knowledge-base/01-business-flows/00-index.md`
-4. Use the loaded context to align your requirement language and business terminology with established project flows. If the knowledge base conflicts with explicit instructions in the user's prompt, **the user's prompt takes precedence**.
-5. Do **not** write to or modify any knowledge base file.
+1. Prefer the hybrid entry file at `knowledge-base/00-index.md`.
+   - If it does **not** exist, fall back to `knowledge-base/00-master.md`.
+   - If neither exists: skip this entire section and proceed normally.
+2. Read the detected entry file first.
+3. If `knowledge-base/.kb-config.yml` exists, use it to confirm whether advanced modules are enabled, but do not load them unless the task requires them.
+4. Prefer `knowledge-base/business-flows.md` when it exists and is complete.
+5. If the project still uses the legacy layout, fall back to `knowledge-base/01-business-flows/00-index.md`.
+6. Skip any KB file that is clearly incomplete or still full of placeholders / `TODO:` content.
+7. Use the loaded context to align your requirement language and business terminology with established project flows. If the knowledge base conflicts with explicit instructions in the user's prompt, **the user's prompt takes precedence**.
+8. Do **not** write to or modify any knowledge base file.
 
 ## Domain Context
 
