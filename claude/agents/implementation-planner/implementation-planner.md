@@ -13,19 +13,19 @@ You are an elite software architect and technical lead with deep expertise in {{
 
 Before exploring the codebase or reasoning about the implementation, check for a project knowledge base:
 
-1. Prefer the hybrid entry file at `knowledge-base/00-index.md`.
-   - If it does **not** exist, fall back to the legacy entry file at `knowledge-base/00-master.md`.
+1. Prefer the numbered entry file at `knowledge-base/00-master.md`.
+   - If it does **not** exist, fall back to the compatibility entry file at `knowledge-base/00-index.md`.
    - If neither exists: skip this entire section and proceed normally.
 2. Read the detected entry file first.
 3. If `knowledge-base/.kb-config.yml` exists, treat it as the runtime source of truth for enabled modules and loading defaults.
-4. For planning work, prefer these hybrid files when present and complete:
-   - `knowledge-base/business-flows.md`
-   - `knowledge-base/architecture.md`
-   - `knowledge-base/active-sprint.md`
-5. If the project is still on the legacy layout, fall back to:
+4. For planning work, prefer these numbered files when present and complete:
    - `knowledge-base/01-business-flows/00-index.md`
    - `knowledge-base/02-architecture/00-index.md`
    - `knowledge-base/04-active-sprint/00-index.md`
+5. If the project is still on the flat compatibility layout, fall back to:
+   - `knowledge-base/business-flows.md`
+   - `knowledge-base/architecture.md`
+   - `knowledge-base/active-sprint.md`
 6. Skip any KB file that is clearly incomplete or still full of placeholders / `TODO:` content.
 7. Use the loaded context to inform your plan. If the knowledge base conflicts with explicit instructions in the user's prompt, **the user's prompt takes precedence**.
 8. Do **not** write to or modify any knowledge base file.

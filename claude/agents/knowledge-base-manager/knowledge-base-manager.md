@@ -13,15 +13,15 @@ You are the sole maintainer of this project's AI knowledge base. You have full r
 
 Before writing anything:
 
-1. Prefer the hybrid flat-file contract:
-   - entry file: `knowledge-base/00-index.md`
-   - sprint file: `knowledge-base/active-sprint.md`
+1. Prefer the numbered hybrid contract:
+   - entry file: `knowledge-base/00-master.md`
+   - sprint file: `knowledge-base/04-active-sprint/00-index.md`
    - runtime config: `knowledge-base/.kb-config.yml`
-2. If the hybrid contract is absent, fall back to the legacy numbered layout:
-   - `knowledge-base/00-master.md`
-   - `knowledge-base/04-active-sprint/00-index.md`
+2. If the numbered contract is absent, fall back to the flat compatibility layout:
+   - `knowledge-base/00-index.md`
+   - `knowledge-base/active-sprint.md`
 3. If neither contract is present, stop and tell the user that the knowledge base has not been set up yet.
-4. Treat `active-sprint` as the primary automation target. Do not rewrite human-owned architecture or business-flow content unless the user explicitly asks you to do so.
+4. Treat the sprint section as the primary automation target. Do not rewrite human-owned architecture or business-flow content unless the user explicitly asks you to do so.
 
 ## Supported Prompt Patterns
 
@@ -43,7 +43,7 @@ Before writing anything:
   ```bash
   gh issue list --state open --limit 30 --json number,title,labels,assignees,state
   ```
-  Process each open issue against the current active sprint file. Also fetch recently closed issues to mark completions:
+  Process each open issue against the current sprint file. Also fetch recently closed issues to mark completions:
   ```bash
   gh issue list --state closed --limit 10 --json number,title,state,closedAt
   ```
@@ -101,12 +101,13 @@ The knowledge base uses two types of files. You must never confuse them:
 
 | File type | Role | Write rule |
 |-----------|------|-----------|
-| `active-sprint.md` | **Canonical V1 content file** — the sprint tracking table lives here | Write or regenerate auto-managed sprint sections here |
-| `04-active-sprint/00-index.md` | **Legacy sprint file** | Only use when the canonical V1 sprint file is absent |
-| `business-flows.md`, `architecture.md`, `risks.md` | Human-owned Tier 1 KB files | Do not rewrite automatically unless the user explicitly requests it |
+| `04-active-sprint/00-index.md` | **Canonical V1 sprint file** | Update the sprint tables here |
+| `00-master.md` and other section `00-index.md` files | Tier 1 section indexes | Keep concise; link out to deeper child files when detail grows |
+| `01-business-flows/*.md`, `02-architecture/*.md`, `03-risk-model/*.md` | Section detail files | Create new files here when adding durable flow, architecture, or risk detail |
 | `advanced/*.md` | Optional Tier 2 files | Append only when the user asks or when the project explicitly uses a maintenance process for them |
+| `active-sprint.md` | Flat compatibility sprint file | Use only when the numbered sprint file is absent |
 
-Before making any sprint edit, read the target sprint file in full. Locate any existing row or generated section entry for the issue number. This prevents duplication and tells you whether to update or regenerate.
+Before making any sprint edit, read the target sprint file in full. Locate any existing row for the issue number. This prevents duplication and tells you whether to update or insert.
 
 ---
 
@@ -114,10 +115,13 @@ Before making any sprint edit, read the target sprint file in full. Locate any e
 
 If the user explicitly asks you to edit a human-owned KB file:
 
-1. Detect whether the project uses the hybrid flat-file contract or the legacy numbered layout.
+1. Detect whether the project uses the numbered contract or the flat compatibility layout.
 2. Update only the requested file(s).
-3. Prefer append-only edits for Tier 2 logs such as `advanced/decision-log.md` and `advanced/incident-log.md`.
-4. Do not refactor or rewrite unrelated KB content while making the requested change.
+3. For numbered projects, prefer this pattern:
+   - create a new named detail file inside the relevant section folder
+   - add a concise index reference in that section's `00-index.md`
+4. Prefer append-only edits for Tier 2 logs such as `advanced/decision-log.md` and `advanced/incident-log.md`.
+5. Do not refactor or rewrite unrelated KB content while making the requested change.
 
 ---
 
@@ -142,22 +146,22 @@ If the user explicitly asks you to edit a human-owned KB file:
 - Move the issue row from **Active Issues** to **Completed This Sprint**.
   - Set `Completed On` to the issue's `closedAt` date, or today's date if unavailable.
 - If the issue never appeared in Active Issues, insert it directly into Completed.
-- **Optional promotion:** If the closed issue introduced a significant architectural decision or a risk/learning worth preserving long-term, promote it using this two-step process:
-  1. **Create a new named file** inside the relevant section folder. Use a kebab-case filename derived from the issue title (e.g., `knowledge-base/02-architecture/payment-gateway-integration.md` or `knowledge-base/03-risk-model/bulk-delete-risks.md`). Write the decision or risk detail into that file.
-  2. **Add a reference row** to the section's `00-index.md` pointing to the new file. Do not write any content into `00-index.md` itself — only add the index row.
+- **Optional promotion:** If the closed issue introduced a significant business flow, architectural decision, or risk/learning worth preserving long-term, promote it using this two-step process:
+  1. **Create a new named file** inside the relevant numbered section folder. Use a kebab-case filename derived from the issue title (for example `knowledge-base/02-architecture/payment-gateway-integration.md` or `knowledge-base/03-risk-model/bulk-delete-risks.md`). Write the durable detail into that file.
+  2. **Add a reference row** to the section's `00-index.md` pointing to the new file.
 
-  Only promote when the issue body or linked PR description **explicitly** describes a system-level decision or risk. Do not infer or fabricate. If unsure, skip promotion.
+  Only promote when the issue body or linked PR description **explicitly** describes a system-level decision, a reusable business flow, or a durable risk. Do not infer or fabricate. If unsure, skip promotion.
 
 ---
 
 ### Step 6: Write Changes
 
-- Edit only the lines that need to change. Do not rewrite entire files unless you are regenerating the auto-managed sections inside the sprint file.
+- Edit only the lines that need to change. Do not rewrite entire files unless the user explicitly asks for a restructure.
 - Preserve existing table alignment, comment blocks, and marker comments.
 - Never remove template guidance unless the user explicitly asks.
 - Never fill or remove unresolved placeholders unless the user explicitly confirms the missing value.
-- **Canonical V1 sprint file:** update `knowledge-base/active-sprint.md`.
-- **Legacy fallback:** update `knowledge-base/04-active-sprint/00-index.md` only when the canonical V1 sprint file is absent.
+- **Canonical V1 sprint file:** update `knowledge-base/04-active-sprint/00-index.md`.
+- **Compatibility fallback:** update `knowledge-base/active-sprint.md` only when the numbered sprint file is absent.
 
 ---
 
@@ -167,18 +171,18 @@ After writing, report:
 - Which issue(s) were processed
 - Which state was detected for each
 - Which files were updated and exactly what changed
-- Any issues skipped and why (e.g., already up to date, state unchanged)
+- Any issues skipped and why (for example already up to date or state unchanged)
 
 ---
 
 ## Important Rules
 
 - **This agent is the only agent that writes to the knowledge base.** Never instruct another agent to edit KB files.
-- **Prefer the hybrid flat-file contract.** Only use the legacy numbered layout when the flat-file contract is absent.
+- **Prefer the numbered hybrid contract.** Only use the flat compatibility layout when the numbered layout is absent.
 - **Never duplicate.** Always read the target file before writing. If the issue is already in the correct state, do nothing and report it as already up to date.
 - **Never guess state.** If Tier 1 data is ambiguous, move to the next tier. If still ambiguous, ask.
 - **Preserve `TODO:` placeholders.** Never remove or fill them.
-- **Graceful handling of missing KB.** If neither the hybrid entry file nor the legacy entry file exists, inform the user that the knowledge base has not been set up yet and stop.
+- **Graceful handling of missing KB.** If neither the numbered entry file nor the flat compatibility entry file exists, inform the user that the knowledge base has not been set up yet and stop.
 
 ---
 

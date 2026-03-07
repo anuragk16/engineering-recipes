@@ -10,11 +10,11 @@ ROOT = Path(__file__).resolve().parents[2]
 TEMPLATES = ROOT / "knowledge-base" / "templates"
 SCRIPT_ROOT = ROOT / "knowledge-base" / "scripts"
 CORE_FILES = [
-    "00-index.md",
-    "architecture.md",
-    "business-flows.md",
-    "active-sprint.md",
-    "risks.md",
+    "00-master.md",
+    "01-business-flows/00-index.md",
+    "02-architecture/00-index.md",
+    "03-risk-model/00-index.md",
+    "04-active-sprint/00-index.md",
     ".kb-config.yml",
 ]
 ADVANCED_MAP = {
@@ -116,13 +116,7 @@ def main() -> int:
         actions.append(copy_file(TEMPLATES / rel, kb_root / rel, args.overwrite))
 
     for script_name in SUPPORT_SCRIPTS:
-        actions.append(
-            copy_file(
-                SCRIPT_ROOT / script_name,
-                kb_root / "scripts" / script_name,
-                args.overwrite,
-            )
-        )
+        actions.append(copy_file(SCRIPT_ROOT / script_name, kb_root / "scripts" / script_name, args.overwrite))
 
     actions.append(configure_kb_config(kb_root / ".kb-config.yml", enabled))
     actions.append(ensure_claude_section(project_root))

@@ -5,7 +5,7 @@ This directory contains the V1 hybrid knowledge-base starter kit for project-loc
 ## What This Recipe Provides
 
 - A versioned KB contract: [SPEC.md](SPEC.md)
-- A reconciliation note against the legacy numbered layout: [SPEC-RECONCILIATION.md](SPEC-RECONCILIATION.md)
+- A reconciliation note against the temporary flat-layout phase: [SPEC-RECONCILIATION.md](SPEC-RECONCILIATION.md)
 - Governance rules: [GOVERNANCE.md](GOVERNANCE.md)
 - Review checklist: [REVIEW-CHECKLIST.md](REVIEW-CHECKLIST.md)
 - Tier 1 and Tier 2 templates under [`templates/`](templates/)
@@ -15,33 +15,39 @@ This directory contains the V1 hybrid knowledge-base starter kit for project-loc
 
 ## Canonical V1 Layout
 
-New projects should use the flat-file layout below inside their own repo:
+New projects should use the numbered tree layout below inside their own repo:
 
 ```text
 knowledge-base/
-├── 00-index.md
-├── architecture.md
-├── business-flows.md
-├── active-sprint.md
-├── risks.md
+├── 00-master.md
+├── 01-business-flows/
+│   └── 00-index.md
+├── 02-architecture/
+│   └── 00-index.md
+├── 03-risk-model/
+│   └── 00-index.md
+├── 04-active-sprint/
+│   └── 00-index.md
 ├── .kb-config.yml
-└── advanced/
-    ├── decision-log.md
-    ├── incident-log.md
-    ├── feature-history.md
-    ├── integration-map.md
-    ├── metrics.md
-    └── known-constraints.md
+├── advanced/
+│   ├── decision-log.md
+│   ├── incident-log.md
+│   ├── feature-history.md
+│   ├── integration-map.md
+│   ├── metrics.md
+│   └── known-constraints.md
+└── scripts/
+    └── validate_hybrid_kb.py
 ```
 
 ## Tiers
 
 ### Tier 1: Required
-- `00-index.md`
-- `architecture.md`
-- `business-flows.md`
-- `active-sprint.md`
-- `risks.md`
+- `00-master.md`
+- `01-business-flows/00-index.md`
+- `02-architecture/00-index.md`
+- `03-risk-model/00-index.md`
+- `04-active-sprint/00-index.md`
 
 ### Tier 2: Optional
 - `advanced/decision-log.md`
@@ -61,7 +67,7 @@ knowledge-base/
 ### One command scaffold
 
 ```bash
-python knowledge-base/scripts/scaffold_hybrid_kb.py /path/to/target-project \
+python3 knowledge-base/scripts/scaffold_hybrid_kb.py /path/to/target-project \
   --enable decision-log,incident-log
 ```
 
@@ -75,7 +81,7 @@ python3 knowledge-base/scripts/validate_hybrid_kb.py .
 ### Validate an installed KB
 
 ```bash
-python knowledge-base/scripts/validate_hybrid_kb.py /path/to/target-project
+python3 knowledge-base/scripts/validate_hybrid_kb.py /path/to/target-project
 ```
 
 ### Use the install prompt
@@ -95,17 +101,25 @@ python3 knowledge-base/scripts/validate_hybrid_kb.py .
 The validator checks:
 - required Tier 1 files exist
 - `.kb-config.yml` has the minimum contract keys
-- `00-index.md` references the Tier 1 files
+- `00-master.md` references the numbered Tier 1 section files
 - enabled Tier 2 modules in config have matching files
+- flat-layout projects created during the temporary phase still validate as compatibility installs
 
-## Legacy Compatibility
+## Why The Numbered Tree Layout
 
-This repo previously used a numbered layout:
-- `00-master.md`
-- `01-business-flows/00-index.md`
-- `02-architecture/00-index.md`
-- `03-risk-model/00-index.md`
-- `04-active-sprint/00-index.md`
+- `00-master.md` stays small and cheap to read.
+- Section `00-index.md` files stay concise and task-focused.
+- Deeper details can live in child files inside the matching numbered folder.
+- Agents can load only the one section they need instead of pulling broad narrative files.
 
-That layout remains supported as a temporary compatibility path for existing projects.
-New projects should use the flat-file hybrid contract.
+## Flat-Layout Compatibility
+
+Some projects may still have the temporary flat layout:
+- `00-index.md`
+- `business-flows.md`
+- `architecture.md`
+- `risks.md`
+- `active-sprint.md`
+
+That layout remains readable and valid as a temporary compatibility path for projects created during the transition.
+New projects should use the numbered tree contract.
