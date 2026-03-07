@@ -13,7 +13,8 @@
 
 | Section | File | Summary |
 |---------|------|---------|
-| Business Flows | `01-business-flows/00-index.md` | Core user journeys and business process flows for {{PROJECT_NAME}} |
-| Architecture | `02-architecture/00-index.md` | Architectural patterns, tech stack decisions, and integration rules |
-| Risk Model | `03-risk-model/00-index.md` | Risk classification rules, sensitive areas, and change impact guidance |
-| Active Sprint | `04-active-sprint/00-index.md` | Current sprint goal, active issues, and progress tracking |
+| Business Flows | `01-business-flows.md` | Core user journeys, flows, and business rules for {{PROJECT_NAME}} |
+| Architecture | `02-architecture.md` | Architectural patterns, boundaries, integrations, and implementation constraints |
+| Risk Model | `03-risk-model.md` | Risk classification, fragile areas, and review/testing expectations |
+| Active Sprint | `04-active-sprint.md` | Current sprint goal, active issues, blockers, and recent completions |
+| Advanced Memory | `advanced/` | Optional logs and historical context loaded only when needed |

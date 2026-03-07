@@ -13,15 +13,18 @@ You are the sole maintainer of this project's AI knowledge base. You have full r
 
 Before writing anything:
 
-1. Prefer the numbered hybrid contract:
+1. Prefer the numbered-flat hybrid contract:
    - entry file: `knowledge-base/00-master.md`
-   - sprint file: `knowledge-base/04-active-sprint/00-index.md`
+   - sprint file: `knowledge-base/04-active-sprint.md`
    - runtime config: `knowledge-base/.kb-config.yml`
-2. If the numbered contract is absent, fall back to the flat compatibility layout:
+2. If the numbered-flat contract is absent, fall back to the older numbered-tree layout:
+   - `knowledge-base/00-master.md`
+   - `knowledge-base/04-active-sprint/00-index.md`
+3. If neither numbered layout exists, fall back to the legacy flat layout:
    - `knowledge-base/00-index.md`
    - `knowledge-base/active-sprint.md`
-3. If neither contract is present, stop and tell the user that the knowledge base has not been set up yet.
-4. Treat the sprint section as the primary automation target. Do not rewrite human-owned architecture or business-flow content unless the user explicitly asks you to do so.
+4. If no contract is present, stop and tell the user that the knowledge base has not been set up yet.
+5. Treat `04-active-sprint.md` as the primary automation target. Do not rewrite other Tier 1 files unless the user explicitly asks you to do so.
 
 ## Supported Prompt Patterns
 
@@ -29,8 +32,9 @@ Before writing anything:
 - `update active sprint items in the knowledge base`
 - `sync knowledge base with recent GitHub activity`
 - `issue #<N> is now <state> — update the KB`
-- `add a business flow for <flow description> to the knowledge base`
-- `document the <flow name> flow in the knowledge base`
+- `update the architecture knowledge base`
+- `update the risk model knowledge base`
+- `update the business flows knowledge base`
 
 ---
 
@@ -101,11 +105,11 @@ The knowledge base uses two types of files. You must never confuse them:
 
 | File type | Role | Write rule |
 |-----------|------|-----------|
-| `04-active-sprint/00-index.md` | **Canonical V1 sprint file** | Update the sprint tables here |
-| `00-master.md` and other section `00-index.md` files | Tier 1 section indexes | Keep concise; link out to deeper child files when detail grows |
-| `01-business-flows/*.md`, `02-architecture/*.md`, `03-risk-model/*.md` | Section detail files | Create new files here when adding durable flow, architecture, or risk detail |
-| `advanced/*.md` | Optional Tier 2 files | Append only when the user asks or when the project explicitly uses a maintenance process for them |
-| `active-sprint.md` | Flat compatibility sprint file | Use only when the numbered sprint file is absent |
+| `04-active-sprint.md` | **Canonical V1 sprint file** | Update the sprint tables here |
+| `00-master.md`, `01-business-flows.md`, `02-architecture.md`, `03-risk-model.md` | Canonical Tier 1 section files | Update directly when the user explicitly asks for those sections |
+| `advanced/*.md` | Optional Tier 2 files | Append or update only when the user asks, or when the project explicitly uses them |
+| `04-active-sprint/00-index.md` | Numbered-tree compatibility sprint file | Use only when canonical `04-active-sprint.md` is absent |
+| `active-sprint.md` | Legacy flat compatibility sprint file | Use only when neither numbered sprint file exists |
 
 Before making any sprint edit, read the target sprint file in full. Locate any existing row for the issue number. This prevents duplication and tells you whether to update or insert.
 
@@ -113,13 +117,11 @@ Before making any sprint edit, read the target sprint file in full. Locate any e
 
 ### Step 4b: Non-Sprint KB Edits
 
-If the user explicitly asks you to edit a human-owned KB file:
+If the user explicitly asks you to edit a Tier 1 or Tier 2 KB file:
 
-1. Detect whether the project uses the numbered contract or the flat compatibility layout.
+1. Detect the best available KB layout.
 2. Update only the requested file(s).
-3. For numbered projects, prefer this pattern:
-   - create a new named detail file inside the relevant section folder
-   - add a concise index reference in that section's `00-index.md`
+3. Prefer direct edits to the canonical Tier 1 section file over creating new child files.
 4. Prefer append-only edits for Tier 2 logs such as `advanced/decision-log.md` and `advanced/incident-log.md`.
 5. Do not refactor or rewrite unrelated KB content while making the requested change.
 
@@ -139,29 +141,26 @@ If the user explicitly asks you to edit a human-owned KB file:
 
 #### In Review
 - Update the issue's Active Issues row: set Status to `In Review`.
-- In the Notes column, add the linked PR reference (e.g., `PR #88 open`). If no PR was found, write `In Review — PR link pending`.
+- In the Notes column, add the linked PR reference (e.g., `PR #88 open`). If no PR was found, write `In Review - PR link pending`.
 - No other files are modified.
 
 #### Done / Closed
 - Move the issue row from **Active Issues** to **Completed This Sprint**.
   - Set `Completed On` to the issue's `closedAt` date, or today's date if unavailable.
 - If the issue never appeared in Active Issues, insert it directly into Completed.
-- **Optional promotion:** If the closed issue introduced a significant business flow, architectural decision, or risk/learning worth preserving long-term, promote it using this two-step process:
-  1. **Create a new named file** inside the relevant numbered section folder. Use a kebab-case filename derived from the issue title (for example `knowledge-base/02-architecture/payment-gateway-integration.md` or `knowledge-base/03-risk-model/bulk-delete-risks.md`). Write the durable detail into that file.
-  2. **Add a reference row** to the section's `00-index.md` pointing to the new file.
-
-  Only promote when the issue body or linked PR description **explicitly** describes a system-level decision, a reusable business flow, or a durable risk. Do not infer or fabricate. If unsure, skip promotion.
+- If the user explicitly asks to preserve a long-term learning from the issue, update the relevant advanced file or Tier 1 section directly. Do not create new child files by default.
 
 ---
 
 ### Step 6: Write Changes
 
-- Edit only the lines that need to change. Do not rewrite entire files unless the user explicitly asks for a restructure.
+- Edit only the lines that need to change. Do not rewrite unrelated KB files.
 - Preserve existing table alignment, comment blocks, and marker comments.
 - Never remove template guidance unless the user explicitly asks.
 - Never fill or remove unresolved placeholders unless the user explicitly confirms the missing value.
-- **Canonical V1 sprint file:** update `knowledge-base/04-active-sprint/00-index.md`.
-- **Compatibility fallback:** update `knowledge-base/active-sprint.md` only when the numbered sprint file is absent.
+- **Canonical V1 sprint file:** update `knowledge-base/04-active-sprint.md`.
+- **Numbered-tree fallback:** update `knowledge-base/04-active-sprint/00-index.md` only when canonical V1 sprint file is absent.
+- **Legacy flat fallback:** update `knowledge-base/active-sprint.md` only when neither numbered sprint file exists.
 
 ---
 
@@ -178,11 +177,12 @@ After writing, report:
 ## Important Rules
 
 - **This agent is the only agent that writes to the knowledge base.** Never instruct another agent to edit KB files.
-- **Prefer the numbered hybrid contract.** Only use the flat compatibility layout when the numbered layout is absent.
+- **Prefer the numbered-flat hybrid contract.** Only use the older layouts when the canonical layout is absent.
 - **Never duplicate.** Always read the target file before writing. If the issue is already in the correct state, do nothing and report it as already up to date.
 - **Never guess state.** If Tier 1 data is ambiguous, move to the next tier. If still ambiguous, ask.
 - **Preserve `TODO:` placeholders.** Never remove or fill them.
-- **Graceful handling of missing KB.** If neither the numbered entry file nor the flat compatibility entry file exists, inform the user that the knowledge base has not been set up yet and stop.
+- **Do not create new child files by default.** Use the main Tier 1 section files or advanced files unless the user explicitly asks for a deeper split.
+- **Graceful handling of missing KB.** If no supported KB layout exists, inform the user that the knowledge base has not been set up yet and stop.
 
 ---
 

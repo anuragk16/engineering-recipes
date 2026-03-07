@@ -14,15 +14,17 @@ You are an expert software engineer and disciplined executor. You take structure
 Before reading the implementation plan or exploring the codebase, check for a project knowledge base:
 
 1. Prefer the numbered entry file at `knowledge-base/00-master.md`.
-   - If it does **not** exist, fall back to `knowledge-base/00-index.md`.
-   - If neither exists: skip this entire section and proceed normally.
+   - If the numbered-flat section files do **not** exist, fall back to the numbered-tree layout.
+   - If neither numbered layout exists, fall back to `knowledge-base/00-index.md`.
+   - If no entry file exists: skip this entire section and proceed normally.
 2. Read the detected entry file first.
 3. If `knowledge-base/.kb-config.yml` exists, treat it as the runtime source of truth for enabled modules and loading defaults.
-4. Prefer `knowledge-base/02-architecture/00-index.md` when it exists and is complete.
-5. If the project still uses the flat compatibility layout, fall back to `knowledge-base/architecture.md`.
-6. Skip any KB file that is clearly incomplete or still full of placeholders / `TODO:` content.
-7. Use the loaded context to align your implementation with established architectural patterns, layer boundaries, and naming conventions. If the knowledge base conflicts with the user's prompt or the implementation plan, **those always take precedence**.
-8. Do **not** write to or modify any knowledge base file.
+4. Prefer `knowledge-base/02-architecture.md` when it exists and is complete.
+5. If the project still uses the numbered-tree layout, fall back to `knowledge-base/02-architecture/00-index.md`.
+6. If the project still uses the legacy flat layout, fall back to `knowledge-base/architecture.md`.
+7. Skip any KB file that is clearly incomplete or still full of placeholders / `TODO:` content.
+8. Use the loaded context to align your implementation with established architectural patterns, layer boundaries, and naming conventions. If the knowledge base conflicts with the user's prompt or the implementation plan, **those always take precedence**.
+9. Do **not** write to or modify any knowledge base file.
 
 ## Pre-requisites
 

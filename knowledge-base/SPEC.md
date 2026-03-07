@@ -15,7 +15,7 @@ Provide a project-local, token-efficient knowledge base that is easy to scaffold
 2. Small default footprint: Tier 1 is required and intentionally compact.
 3. Optional advanced depth: Tier 2 is opt-in per project.
 4. Deterministic reads: agents read the entry file first, then load only mapped files.
-5. Tree layout for cheaper reads: index files stay small, while deeper detail lives in child files loaded only when needed.
+5. Reliable writes over deep structure: Tier 1 uses one file per section so KB updates remain predictable.
 6. Tool agnostic content: KB content stays plain Markdown plus lightweight config.
 
 ## Canonical Project Layout
@@ -23,14 +23,10 @@ Provide a project-local, token-efficient knowledge base that is easy to scaffold
 ```text
 knowledge-base/
 ├── 00-master.md
-├── 01-business-flows/
-│   └── 00-index.md
-├── 02-architecture/
-│   └── 00-index.md
-├── 03-risk-model/
-│   └── 00-index.md
-├── 04-active-sprint/
-│   └── 00-index.md
+├── 01-business-flows.md
+├── 02-architecture.md
+├── 03-risk-model.md
+├── 04-active-sprint.md
 ├── .kb-config.yml
 ├── advanced/
 │   ├── decision-log.md
@@ -47,10 +43,10 @@ knowledge-base/
 
 ### Tier 1: Required
 - `00-master.md`
-- `01-business-flows/00-index.md`
-- `02-architecture/00-index.md`
-- `03-risk-model/00-index.md`
-- `04-active-sprint/00-index.md`
+- `01-business-flows.md`
+- `02-architecture.md`
+- `03-risk-model.md`
+- `04-active-sprint.md`
 
 ### Tier 2: Optional
 - `advanced/decision-log.md`
@@ -65,10 +61,10 @@ knowledge-base/
 | File | Owner | Notes |
 |---|---|---|
 | `00-master.md` | Human | Keep concise; update when KB structure or project metadata changes |
-| `01-business-flows/00-index.md` | Human | Keep as an index only; flow detail belongs in child files in `01-business-flows/` |
-| `02-architecture/00-index.md` | Human | Keep as an index/summary; detailed design notes belong in child files in `02-architecture/` |
-| `03-risk-model/00-index.md` | Human | Keep as an index/summary; detailed risk notes belong in child files in `03-risk-model/` |
-| `04-active-sprint/00-index.md` | Human or project-specific process | Current delivery state file |
+| `01-business-flows.md` | Human or guided KB maintenance | Main business context file |
+| `02-architecture.md` | Human or guided KB maintenance | Main architecture/context file |
+| `03-risk-model.md` | Human or guided KB maintenance | Main risk and review guidance file |
+| `04-active-sprint.md` | Human or project-specific process | Main volatile delivery-state file |
 | Tier 2 append-only logs | Human or semi-automated | Prefer append-only entries |
 
 ## Read Contract
@@ -83,14 +79,11 @@ If `knowledge-base/.kb-config.yml` exists, it is the runtime source of truth for
 
 | Task | Files |
 |---|---|
-| Code review | `02-architecture/00-index.md`, `03-risk-model/00-index.md` |
-| Planning | `01-business-flows/00-index.md`, `02-architecture/00-index.md`, `04-active-sprint/00-index.md` |
-| Sprint work | `04-active-sprint/00-index.md` |
+| Code review | `02-architecture.md`, `03-risk-model.md` |
+| Planning | `01-business-flows.md`, `02-architecture.md`, `04-active-sprint.md` |
+| Sprint work | `04-active-sprint.md` |
 | Onboarding | All Tier 1 files |
-| Incident response | `03-risk-model/00-index.md`, `advanced/incident-log.md` when enabled |
-
-### Section expansion rule
-If more detail is needed, agents should open child files inside the relevant numbered directory rather than loading unrelated sections.
+| Incident response | `03-risk-model.md`, `advanced/incident-log.md` when enabled |
 
 ### No-assumptions rule
 If a relevant file is missing or clearly incomplete, agents skip it and continue with available context. They do not fabricate missing context.
@@ -102,7 +95,7 @@ If `knowledge-base/` or the entry file does not exist, agents proceed without KB
 
 1. Only the designated KB maintenance flow may write automated updates.
 2. This starter kit ships scaffold + validation only.
-3. New section detail should be written into child files inside the matching numbered directory, then linked from that section's `00-index.md`.
+3. Tier 1 section files are the default write targets. Do not require automatic child-file creation for routine updates.
 4. Tier 2 logs should prefer append-only updates.
 5. Agents that consume KB context remain read-only.
 
@@ -116,22 +109,29 @@ Minimum supported keys:
 
 ## Compatibility Rules
 
-### Flat-layout read support
-Agents and helpers may support these flat-layout files when the numbered layout is absent:
+### Numbered-tree support
+Agents and helpers may support these older numbered-tree files when the canonical numbered-flat layout is absent:
+- `knowledge-base/00-master.md`
+- `knowledge-base/01-business-flows/00-index.md`
+- `knowledge-base/02-architecture/00-index.md`
+- `knowledge-base/03-risk-model/00-index.md`
+- `knowledge-base/04-active-sprint/00-index.md`
+
+### Legacy flat support
+Agents and helpers may also support these temporary flat-layout files when the canonical numbered-flat layout is absent:
 - `knowledge-base/00-index.md`
 - `knowledge-base/business-flows.md`
 - `knowledge-base/architecture.md`
 - `knowledge-base/risks.md`
 - `knowledge-base/active-sprint.md`
 
-### Flat-layout migration support
-Projects created during the flat-layout phase may remain readable until migrated. New installs must use the numbered layout.
+New installs must use the numbered-flat layout.
 
 ## Maintenance Cadence
 
 Recommended default:
 - update Tier 1 when project reality changes
-- add child files under a numbered section when detail grows beyond the index
+- keep Tier 1 concise enough for routine agent reads
 - use append-only updates for Tier 2 logs where possible
 - run the KB validator after setup or structural changes
 
@@ -145,7 +145,7 @@ Recommended default:
 
 - Is the change Tier 1 or Tier 2?
 - Does it increase default token cost?
-- Is the relevant index file still concise and scannable?
-- Does detailed content live in the correct section directory?
+- Is the relevant Tier 1 file still concise and scannable?
+- Is the change write-friendly for the KB manager?
 - Is ownership clear?
 - Does the change preserve tool-agnostic plain-text content?

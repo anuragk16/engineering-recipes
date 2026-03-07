@@ -14,7 +14,7 @@ Individual projects opt into recipes by copying or referencing them.
 | Claude Agents | [claude/agents/implementation-executor/](claude/agents/implementation-executor/) | Claude Code agent that executes an existing implementation plan from a GitHub issue — implementing tasks sequentially, committing after each, and opening a PR |
 | Claude Agents | [claude/agents/business-analyst/](claude/agents/business-analyst/) | Claude Code agent that refines raw or ambiguous feature requests into clear, business-aligned, non-technical requirement documents |
 | Claude Agents | [claude/agents/knowledge-base-manager/](claude/agents/knowledge-base-manager/) | Claude Code agent that syncs the project knowledge base with GitHub issue state — the only agent with write access to KB files |
-| Knowledge Base | [knowledge-base/](knowledge-base/) | Hybrid project-local KB starter kit with numbered tree templates, config, scaffolding, and validation |
+| Knowledge Base | [knowledge-base/](knowledge-base/) | Hybrid project-local KB starter kit with numbered-flat Tier 1 files, advanced context modules, scaffolding, and validation |
 
 ## Hybrid Knowledge Base
 
@@ -23,7 +23,7 @@ The current KB model is a hybrid starter kit:
 - Each project owns its instantiated KB inside its own repo.
 - Tier 1 is small and required.
 - Tier 2 is optional and loaded on demand.
-- The default structure is a numbered tree so agents can read only the narrow section they need.
+- The default structure is numbered-flat so agents can read sections selectively and update Tier 1 reliably.
 - Validation is explicit and lightweight after setup.
 
 Start with [knowledge-base/README.md](knowledge-base/README.md).

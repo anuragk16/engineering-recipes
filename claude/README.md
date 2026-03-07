@@ -13,12 +13,12 @@ This directory contains reusable, templatized Claude Code agents that can be set
 
 ## Knowledge Base Contract
 
-These agents now prefer the numbered hybrid KB contract:
+These agents now prefer the numbered-flat hybrid KB contract:
 - entry file: `knowledge-base/00-master.md`
 - runtime config: `knowledge-base/.kb-config.yml`
-- core files: `01-business-flows/00-index.md`, `02-architecture/00-index.md`, `03-risk-model/00-index.md`, `04-active-sprint/00-index.md`
+- core files: `01-business-flows.md`, `02-architecture.md`, `03-risk-model.md`, `04-active-sprint.md`
 
-Projects created during the temporary flat-layout phase remain supported as a fallback.
+Older numbered-tree and legacy-flat KB layouts remain supported as fallbacks.
 
 ## Setting Up Agents in Your Project
 
