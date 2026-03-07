@@ -7,23 +7,23 @@ enabled_tier2:
   # Add optional module keys here when enabled for the project.
 loading_defaults:
   code_review:
-    - architecture.md
-    - risks.md
+    - 02-architecture/00-index.md
+    - 03-risk-model/00-index.md
   planning:
-    - business-flows.md
-    - architecture.md
-    - active-sprint.md
+    - 01-business-flows/00-index.md
+    - 02-architecture/00-index.md
+    - 04-active-sprint/00-index.md
   sprint_work:
-    - active-sprint.md
+    - 04-active-sprint/00-index.md
   onboarding:
-    - 00-index.md
-    - architecture.md
-    - business-flows.md
-    - active-sprint.md
-    - risks.md
+    - 00-master.md
+    - 01-business-flows/00-index.md
+    - 02-architecture/00-index.md
+    - 03-risk-model/00-index.md
+    - 04-active-sprint/00-index.md
   incident_response:
-    - risks.md
+    - 03-risk-model/00-index.md
     - advanced/incident-log.md
 compatibility:
-  legacy_entrypoint: knowledge-base/00-master.md
-  legacy_sprint_file: knowledge-base/04-active-sprint/00-index.md
+  flat_entrypoint: knowledge-base/00-index.md
+  flat_sprint_file: knowledge-base/active-sprint.md

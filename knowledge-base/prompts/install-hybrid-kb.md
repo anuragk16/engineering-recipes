@@ -23,12 +23,12 @@ Follow these steps exactly:
    - the 5 most recent git commits
 2. Check whether `knowledge-base/` already exists.
    - If it exists, do not overwrite files silently. Show me what exists and ask how to proceed.
-3. Create `knowledge-base/` using the flat-file hybrid contract:
-   - `00-index.md`
-   - `architecture.md`
-   - `business-flows.md`
-   - `active-sprint.md`
-   - `risks.md`
+3. Create `knowledge-base/` using the numbered hybrid contract:
+   - `00-master.md`
+   - `01-business-flows/00-index.md`
+   - `02-architecture/00-index.md`
+   - `03-risk-model/00-index.md`
+   - `04-active-sprint/00-index.md`
    - `.kb-config.yml`
 4. Evaluate whether Tier 2 is needed for this project.
    - Use evidence only from the codebase and project docs.
