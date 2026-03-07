@@ -6,10 +6,10 @@ A Claude Code agent that keeps the project knowledge base in sync with GitHub is
 
 - Fetches GitHub issue data in a tiered, token-efficient order (title + state first, body only if needed, PR only if in-review or done)
 - Maps each issue to one of four states: Backlog, In Progress, In Review, Done/Closed
-- Updates the canonical sprint file at `knowledge-base/04-active-sprint/00-index.md` without duplicating existing entries
-- Falls back to `knowledge-base/active-sprint.md` for projects still on the flat compatibility layout
-- Optionally promotes significant architectural decisions or risk learnings to the relevant numbered section folders when an issue is closed
-- Handles bulk syncs (all open issues) and targeted updates (single issue URL or number)
+- Updates the canonical sprint file at `knowledge-base/04-active-sprint.md` without duplicating existing entries
+- Falls back to `knowledge-base/04-active-sprint/00-index.md` for older numbered-tree projects and to `knowledge-base/active-sprint.md` for legacy flat projects
+- Updates single-file Tier 1 sections when the user explicitly asks for KB changes outside the sprint file
+- Appends to advanced files when deeper historical context is requested
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ No placeholders to replace — this agent has no `{{PLACEHOLDER}}` values. It wo
 
 ### 2. Register in your project's CLAUDE.md
 
-The bootstrap installation prompt (see `knowledge-base/README.md`) adds this automatically. If registering manually, add to your project's `CLAUDE.md`:
+The bootstrap installation prompt adds this automatically. If registering manually, add to your project's `CLAUDE.md`:
 
 ```markdown
 ## Custom Agents
@@ -38,7 +38,7 @@ The bootstrap installation prompt (see `knowledge-base/README.md`) adds this aut
 | `knowledge-base-manager` | When the user wants to update the knowledge base from a GitHub issue, sync the active sprint, or reflect recent GitHub activity in the KB. |
 ```
 
-If the project uses the hybrid KB contract, `knowledge-base/.kb-config.yml` is the runtime source of truth and the manager should prefer the numbered layout over the flat compatibility layout.
+If the project uses the hybrid KB contract, `knowledge-base/.kb-config.yml` is the runtime source of truth and the manager should prefer the numbered-flat layout over the older layouts.
 
 ## Usage
 

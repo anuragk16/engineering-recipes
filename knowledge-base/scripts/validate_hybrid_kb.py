@@ -4,7 +4,15 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-TREE_REQUIRED = [
+NUMBERED_FLAT_REQUIRED = [
+    "knowledge-base/00-master.md",
+    "knowledge-base/01-business-flows.md",
+    "knowledge-base/02-architecture.md",
+    "knowledge-base/03-risk-model.md",
+    "knowledge-base/04-active-sprint.md",
+    "knowledge-base/.kb-config.yml",
+]
+NUMBERED_TREE_REQUIRED = [
     "knowledge-base/00-master.md",
     "knowledge-base/01-business-flows/00-index.md",
     "knowledge-base/02-architecture/00-index.md",
@@ -12,7 +20,7 @@ TREE_REQUIRED = [
     "knowledge-base/04-active-sprint/00-index.md",
     "knowledge-base/.kb-config.yml",
 ]
-FLAT_REQUIRED = [
+LEGACY_FLAT_REQUIRED = [
     "knowledge-base/00-index.md",
     "knowledge-base/architecture.md",
     "knowledge-base/business-flows.md",
@@ -28,13 +36,19 @@ OPTIONAL_BY_KEY = {
     "metrics": "knowledge-base/advanced/metrics.md",
     "known-constraints": "knowledge-base/advanced/known-constraints.md",
 }
-TREE_ENTRY_REFS = [
+NUMBERED_FLAT_ENTRY_REFS = [
+    "01-business-flows.md",
+    "02-architecture.md",
+    "03-risk-model.md",
+    "04-active-sprint.md",
+]
+NUMBERED_TREE_ENTRY_REFS = [
     "01-business-flows/00-index.md",
     "02-architecture/00-index.md",
     "03-risk-model/00-index.md",
     "04-active-sprint/00-index.md",
 ]
-FLAT_ENTRY_REFS = [
+LEGACY_FLAT_ENTRY_REFS = [
     "architecture.md",
     "business-flows.md",
     "active-sprint.md",
@@ -60,12 +74,12 @@ def read_enabled_tier2(config_path: Path) -> list[str]:
 
 
 def detect_layout(root: Path) -> str | None:
-    tree_entry = root / "knowledge-base/00-master.md"
-    flat_entry = root / "knowledge-base/00-index.md"
-    if tree_entry.exists():
-        return "tree"
-    if flat_entry.exists():
-        return "flat"
+    if (root / "knowledge-base/01-business-flows.md").exists():
+        return "numbered-flat"
+    if (root / "knowledge-base/01-business-flows/00-index.md").exists():
+        return "numbered-tree"
+    if (root / "knowledge-base/00-index.md").exists():
+        return "legacy-flat"
     return None
 
 
@@ -109,14 +123,19 @@ def main() -> int:
     errors: list[str] = []
     layout = detect_layout(root)
 
-    if layout == "tree":
-        validate_required(root, TREE_REQUIRED, errors)
-        validate_entry(root / "knowledge-base/00-master.md", TREE_ENTRY_REFS, errors)
-    elif layout == "flat":
-        validate_required(root, FLAT_REQUIRED, errors)
-        validate_entry(root / "knowledge-base/00-index.md", FLAT_ENTRY_REFS, errors)
+    if layout == "numbered-flat":
+        validate_required(root, NUMBERED_FLAT_REQUIRED, errors)
+        validate_entry(root / "knowledge-base/00-master.md", NUMBERED_FLAT_ENTRY_REFS, errors)
+    elif layout == "numbered-tree":
+        validate_required(root, NUMBERED_TREE_REQUIRED, errors)
+        validate_entry(root / "knowledge-base/00-master.md", NUMBERED_TREE_ENTRY_REFS, errors)
+    elif layout == "legacy-flat":
+        validate_required(root, LEGACY_FLAT_REQUIRED, errors)
+        validate_entry(root / "knowledge-base/00-index.md", LEGACY_FLAT_ENTRY_REFS, errors)
     else:
-        errors.append("knowledge base entry file not found: expected knowledge-base/00-master.md or knowledge-base/00-index.md")
+        errors.append(
+            "knowledge base entry file not found: expected knowledge-base/00-master.md or knowledge-base/00-index.md"
+        )
 
     validate_config(root, errors)
 

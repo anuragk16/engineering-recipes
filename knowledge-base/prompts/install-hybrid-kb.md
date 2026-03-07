@@ -22,14 +22,18 @@ Follow these steps exactly:
    - top-level directory structure
    - the 5 most recent git commits
 2. Check whether `knowledge-base/` already exists.
-   - If it exists, do not overwrite files silently. Show me what exists and ask how to proceed.
-3. Create `knowledge-base/` using the numbered hybrid contract:
+   - If it exists, do not overwrite files silently.
+   - Show me which files already exist, which are missing, and whether this looks like a partial install.
+   - Ask how to proceed before making changes.
+3. Create `knowledge-base/` using the numbered flat hybrid contract:
    - `00-master.md`
-   - `01-business-flows/00-index.md`
-   - `02-architecture/00-index.md`
-   - `03-risk-model/00-index.md`
-   - `04-active-sprint/00-index.md`
+   - `01-business-flows.md`
+   - `02-architecture.md`
+   - `03-risk-model.md`
+   - `04-active-sprint.md`
    - `.kb-config.yml`
+   - create `advanced/` only if Tier 2 files are selected
+   - create `scripts/` for helper scripts
 4. Evaluate whether Tier 2 is needed for this project.
    - Use evidence only from the codebase and project docs.
    - Consider Tier 2 justified only when the project shows real complexity such as:

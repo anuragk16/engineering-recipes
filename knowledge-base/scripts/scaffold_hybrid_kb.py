@@ -11,10 +11,10 @@ TEMPLATES = ROOT / "knowledge-base" / "templates"
 SCRIPT_ROOT = ROOT / "knowledge-base" / "scripts"
 CORE_FILES = [
     "00-master.md",
-    "01-business-flows/00-index.md",
-    "02-architecture/00-index.md",
-    "03-risk-model/00-index.md",
-    "04-active-sprint/00-index.md",
+    "01-business-flows.md",
+    "02-architecture.md",
+    "03-risk-model.md",
+    "04-active-sprint.md",
     ".kb-config.yml",
 ]
 ADVANCED_MAP = {
