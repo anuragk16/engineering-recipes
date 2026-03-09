@@ -49,7 +49,6 @@ If the project uses the hybrid KB contract, `knowledge-base/.kb-config.yml` is t
 ## Recommended Workflow Assets
 
 For downstream teams, pair this agent with:
-- `knowledge-base/project-files/pull_request_template.md`
 - `knowledge-base/project-files/KB-PROCESS.md`
 
 Those assets make the "KB impact" decision part of the delivery workflow instead of a manual reminder.

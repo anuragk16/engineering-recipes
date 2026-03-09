@@ -178,7 +178,7 @@ Recommended default:
 ## Operational Workflow Expectations
 
 - every task should make an explicit KB impact decision
-- KB-aware PR review should check code and KB alignment together
+- review should check code and KB alignment together
 - `04-active-sprint.md` is the default automation target
 - business, architecture, risk, and sprint each need named owners in the downstream project
 - missing KB context must not be fabricated by agents
