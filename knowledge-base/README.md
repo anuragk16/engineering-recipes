@@ -99,17 +99,29 @@ Run this from the target project root after installation:
 python3 knowledge-base/scripts/validate_hybrid_kb.py .
 ```
 
-The validator checks:
+The validator has two levels of coverage.
+
+For canonical numbered-flat installs, it checks:
 - required Tier 1 files exist
 - `.kb-config.yml` has the minimum contract keys
 - `00-master.md` references the numbered-flat Tier 1 files
+- `loading_defaults` file references resolve correctly
 - canonical Tier 1 files contain front matter and the required shared headings
 - front matter freshness and owner links can be evaluated
+- Tier 1 files stay within recommended size budgets
 - append-only logs use a recognizable entry format
 - enabled Tier 2 modules in config have matching files
-- older numbered-tree and legacy-flat projects still validate as compatibility installs
+- duplicate canonical claims and other KB hygiene issues can be flagged as warnings
 
-Warnings are used for freshness, owner-link, and duplication hygiene issues so a fresh scaffold can pass before the project is fully populated.
+For numbered-tree and legacy-flat compatibility installs, it checks:
+- required files for the compatibility layout exist
+- the entry file references the expected compatibility files
+- `.kb-config.yml` still validates
+- enabled Tier 2 modules in config have matching files
+
+Deep schema checks such as front matter, shared Tier 1 headings, size budgets, and duplicate-claim hygiene are skipped for compatibility layouts.
+
+Warnings are used by default for freshness, owner-link, size-budget, and duplication hygiene issues so a fresh scaffold can pass before the project is fully populated. Use `--strict-freshness` if stale `last_reviewed` metadata should fail validation.
 
 ## Why The Numbered-Flat Layout
 
@@ -141,7 +153,7 @@ New projects should use the numbered-flat contract.
 
 ## Recommended Downstream Workflow Assets
 
-For downstream project repos, the starter kit also ships reusable workflow files:
+For downstream project repos, the starter kit also ships a reusable workflow file:
 - [project-files/KB-PROCESS.md](project-files/KB-PROCESS.md)
 
-These are not part of the strict KB file contract, but they make KB updates part of normal delivery.
+This is not part of the strict KB file contract, but it makes KB updates part of normal delivery.
