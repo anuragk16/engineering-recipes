@@ -16,9 +16,13 @@ Use this guide when rolling the hybrid KB into a downstream project. It assumes 
 This repo now provides:
 - the versioned KB contract
 - metadata-enabled KB templates
-- a validator that checks structure, front matter, headings, freshness, and owner links
+- a validator that checks contract structure, metadata, loading references, and KB hygiene for canonical numbered-flat installs
 - a scaffold script that can install the KB, KB manager, and optional workflow assets
 - a reusable downstream workflow file for KB delivery rules
+
+Compatibility note:
+- numbered-tree and legacy-flat installs still validate for required files, entry references, config, and enabled Tier 2 modules
+- deep checks such as front matter, shared Tier 1 headings, size budgets, and duplicate-claim hygiene apply only to the canonical numbered-flat layout
 
 ## Project Install Checklist
 
