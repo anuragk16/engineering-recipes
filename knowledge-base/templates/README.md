@@ -24,3 +24,13 @@ These templates are copied into downstream projects.
 - Do not force child-file creation for routine KB updates.
 - Treat Tier 2 as opt-in and mostly append-only.
 - Keep KB content plain Markdown plus lightweight config.
+- Canonical KB content templates should include front matter metadata.
+- Canonical Tier 1 templates should keep the shared top-level section schema:
+  - `Purpose`
+  - `Scope`
+  - `What is true today`
+  - `Key rules`
+  - `Known gaps / uncertainty`
+  - `Linked evidence`
+  - `Next review trigger`
+- `CLAUDE.section.md` is a helper snippet, not a KB content file, so it does not use front matter.

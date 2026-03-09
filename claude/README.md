@@ -17,6 +17,8 @@ These agents now prefer the numbered-flat hybrid KB contract:
 - entry file: `knowledge-base/00-master.md`
 - runtime config: `knowledge-base/.kb-config.yml`
 - core files: `01-business-flows.md`, `02-architecture.md`, `03-risk-model.md`, `04-active-sprint.md`
+- consumer agents remain read-only when using the KB
+- `knowledge-base-manager` is the only write-enabled KB automation flow
 
 Older numbered-tree and legacy-flat KB layouts remain supported as fallbacks.
 

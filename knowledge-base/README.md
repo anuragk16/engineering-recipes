@@ -7,8 +7,11 @@ This directory contains the V1 hybrid knowledge-base starter kit for project-loc
 - A versioned KB contract: [SPEC.md](SPEC.md)
 - A reconciliation note across older layouts: [SPEC-RECONCILIATION.md](SPEC-RECONCILIATION.md)
 - Governance rules: [GOVERNANCE.md](GOVERNANCE.md)
+- Pilot scope note: [KB-CONTRACT-V1-PILOT-SCOPE.md](KB-CONTRACT-V1-PILOT-SCOPE.md)
+- Adoption guide: [ADOPTION-GUIDE.md](ADOPTION-GUIDE.md)
 - Review checklist: [REVIEW-CHECKLIST.md](REVIEW-CHECKLIST.md)
 - Tier 1 and Tier 2 templates under [`templates/`](templates/)
+- Downstream workflow assets under [`project-files/`](project-files/)
 - A scaffold script for installing the KB into another project
 - A validation script for checking a KB installation
 - A copy-paste install prompt for agent-based setup
@@ -64,7 +67,10 @@ knowledge-base/
 
 ```bash
 python3 knowledge-base/scripts/scaffold_hybrid_kb.py /path/to/target-project \
-  --enable decision-log,incident-log
+  --enable decision-log,incident-log \
+  --install-kb-manager \
+  --install-pr-template \
+  --install-kb-process
 ```
 
 After setup, move into the target project root and validate the KB:
@@ -98,8 +104,13 @@ The validator checks:
 - required Tier 1 files exist
 - `.kb-config.yml` has the minimum contract keys
 - `00-master.md` references the numbered-flat Tier 1 files
+- canonical Tier 1 files contain front matter and the required shared headings
+- front matter freshness and owner links can be evaluated
+- append-only logs use a recognizable entry format
 - enabled Tier 2 modules in config have matching files
 - older numbered-tree and legacy-flat projects still validate as compatibility installs
+
+Warnings are used for freshness, owner-link, and duplication hygiene issues so a fresh scaffold can pass before the project is fully populated.
 
 ## Why The Numbered-Flat Layout
 
@@ -128,3 +139,11 @@ Older projects may still use one of these layouts:
 
 Those layouts remain readable and valid as temporary compatibility paths for existing projects.
 New projects should use the numbered-flat contract.
+
+## Recommended Downstream Workflow Assets
+
+For downstream project repos, the starter kit also ships reusable workflow files:
+- [project-files/pull_request_template.md](project-files/pull_request_template.md)
+- [project-files/KB-PROCESS.md](project-files/KB-PROCESS.md)
+
+These are not part of the strict KB file contract, but they make KB updates part of normal delivery.
