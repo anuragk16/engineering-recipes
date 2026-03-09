@@ -10,7 +10,6 @@ Source directory to read from:
 - `knowledge-base/templates/advanced/`
 - `knowledge-base/templates/.kb-config.yml`
 - `knowledge-base/templates/CLAUDE.section.md`
-- `knowledge-base/project-files/pull_request_template.md`
 - `knowledge-base/project-files/KB-PROCESS.md`
 - `knowledge-base/scripts/scaffold_hybrid_kb.py`
 - `knowledge-base/scripts/validate_hybrid_kb.py`
@@ -53,7 +52,6 @@ Follow these steps exactly:
    - Prefer running `knowledge-base/scripts/scaffold_hybrid_kb.py` from the source repo against this project root.
    - Use `--enable` only for the Tier 2 modules I confirmed.
    - Use `--install-kb-manager` if this project uses Claude agents.
-   - Use `--install-pr-template` if this project does not already have a PR template.
    - Use `--install-kb-process` if this project does not already have a KB workflow doc.
    - Only fall back to manual file copying if the scaffold script cannot be run.
    - The install must create the numbered flat hybrid contract:
@@ -90,13 +88,12 @@ Follow these steps exactly:
     - If the section is missing, create it.
     - If the section exists but does not list `knowledge-base-manager`, add it.
     - Do not duplicate an existing entry.
-13. If the project does not already have a KB-aware PR template, copy `knowledge-base/project-files/pull_request_template.md` to `.github/pull_request_template.md`.
-14. If the project does not already have a KB workflow doc, copy `knowledge-base/project-files/KB-PROCESS.md` to `docs/kb-process.md`.
-15. Run the installed validator from this project's root:
+13. If the project does not already have a KB workflow doc, copy `knowledge-base/project-files/KB-PROCESS.md` to `docs/kb-process.md`.
+14. Run the installed validator from this project's root:
     - `python3 knowledge-base/scripts/validate_hybrid_kb.py .`
     - If validation fails, show me the errors and stop.
     - If validation passes with warnings, summarize the warnings and which ones are expected placeholders vs real setup gaps.
-16. At the end, show me:
+15. At the end, show me:
    - files created
    - whether the scaffold script was used or whether you had to fall back to manual copying
    - placeholders inferred
@@ -106,7 +103,7 @@ Follow these steps exactly:
    - Tier 2 modules enabled
    - owners assigned in `.kb-config.yml`
    - whether `knowledge-base-manager` agent was installed or already existed
-   - whether the PR template and KB process doc were installed
+   - whether the KB process doc was installed
    - the exact scaffold command that was run
    - the exact validation command that was run
 ```

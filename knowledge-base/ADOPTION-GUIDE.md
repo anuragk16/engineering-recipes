@@ -18,7 +18,7 @@ This repo now provides:
 - metadata-enabled KB templates
 - a validator that checks structure, front matter, headings, freshness, and owner links
 - a scaffold script that can install the KB, KB manager, and optional workflow assets
-- reusable downstream workflow files for KB-aware PR review and delivery rules
+- a reusable downstream workflow file for KB delivery rules
 
 ## Project Install Checklist
 
@@ -64,7 +64,7 @@ Enable Tier 2 only when it is justified:
 ## Delivery Workflow Rules
 
 - Every task must make an explicit KB impact decision before it is considered done.
-- KB impact belongs in the PR template, not in memory.
+- KB impact belongs in the documented delivery workflow, not in memory.
 - Reviewers should check code and KB consistency together when KB impact is marked.
 - The KB manager should keep `04-active-sprint.md` current, but other Tier 1 files should still be reviewed by human owners.
 
@@ -114,7 +114,6 @@ Front matter `owners` fields should reference keys from `.kb-config.yml` so vali
 - populate the Tier 1 baseline
 
 ### Week 3
-- install KB-aware PR template
 - add KB issue labels
 - publish/update the project KB process doc
 - run the first real update flows and remove friction
@@ -127,6 +126,5 @@ Front matter `owners` fields should reference keys from `.kb-config.yml` so vali
 
 ## Related Assets
 
-- [project-files/pull_request_template.md](project-files/pull_request_template.md)
 - [project-files/KB-PROCESS.md](project-files/KB-PROCESS.md)
 - [prompts/install-hybrid-kb.md](prompts/install-hybrid-kb.md)

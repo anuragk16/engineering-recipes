@@ -69,7 +69,6 @@ knowledge-base/
 python3 knowledge-base/scripts/scaffold_hybrid_kb.py /path/to/target-project \
   --enable decision-log,incident-log \
   --install-kb-manager \
-  --install-pr-template \
   --install-kb-process
 ```
 
@@ -143,7 +142,6 @@ New projects should use the numbered-flat contract.
 ## Recommended Downstream Workflow Assets
 
 For downstream project repos, the starter kit also ships reusable workflow files:
-- [project-files/pull_request_template.md](project-files/pull_request_template.md)
 - [project-files/KB-PROCESS.md](project-files/KB-PROCESS.md)
 
 These are not part of the strict KB file contract, but they make KB updates part of normal delivery.

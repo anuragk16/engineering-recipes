@@ -29,7 +29,6 @@ ADVANCED_MAP = {
     "known-constraints": "advanced/known-constraints.md",
 }
 OPTIONAL_PROJECT_FILES = {
-    "pr_template": (PROJECT_FILES_ROOT / "pull_request_template.md", Path(".github/pull_request_template.md")),
     "kb_process": (PROJECT_FILES_ROOT / "KB-PROCESS.md", Path("docs/kb-process.md")),
 }
 CLAUDE_SECTION = TEMPLATES / "CLAUDE.section.md"
@@ -182,7 +181,6 @@ def main() -> int:
         help="Comma-separated Tier 2 modules to enable (decision-log,incident-log,feature-history,integration-map,metrics,known-constraints)",
     )
     parser.add_argument("--install-kb-manager", action="store_true", help="Install the write-enabled KB manager agent")
-    parser.add_argument("--install-pr-template", action="store_true", help="Install the KB-aware PR template")
     parser.add_argument("--install-kb-process", action="store_true", help="Install the KB working-agreement doc")
     parser.add_argument("--overwrite", action="store_true", help="Overwrite existing files")
     args = parser.parse_args()
@@ -227,10 +225,6 @@ def main() -> int:
             copy_file(KB_MANAGER_AGENT, project_root / ".claude" / "agents" / "knowledge-base-manager.md", args.overwrite)
         )
 
-    if args.install_pr_template:
-        src, dest = OPTIONAL_PROJECT_FILES["pr_template"]
-        actions.append(copy_file(src, project_root / dest, args.overwrite))
-
     if args.install_kb_process:
         src, dest = OPTIONAL_PROJECT_FILES["kb_process"]
         actions.append(copy_file(src, project_root / dest, args.overwrite))
@@ -243,7 +237,6 @@ def main() -> int:
         print(f"- {action}")
     print(f"- enabled Tier 2: {', '.join(enabled) if enabled else 'none'}")
     print(f"- KB manager installed: {'yes' if args.install_kb_manager else 'no'}")
-    print(f"- PR template installed: {'yes' if args.install_pr_template else 'no'}")
     print(f"- KB process doc installed: {'yes' if args.install_kb_process else 'no'}")
     print("- validate from the project root with: python3 knowledge-base/scripts/validate_hybrid_kb.py .")
     return 0
