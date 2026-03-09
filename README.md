@@ -27,3 +27,7 @@ The current KB model is a hybrid starter kit:
 - Validation is explicit and lightweight after setup.
 
 Start with [knowledge-base/README.md](knowledge-base/README.md).
+
+Key KB rollout documents:
+- [knowledge-base/KB-CONTRACT-V1-PILOT-SCOPE.md](knowledge-base/KB-CONTRACT-V1-PILOT-SCOPE.md)
+- [knowledge-base/ADOPTION-GUIDE.md](knowledge-base/ADOPTION-GUIDE.md)

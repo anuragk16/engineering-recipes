@@ -9,6 +9,8 @@
 
 Provide a project-local, token-efficient knowledge base that is easy to scaffold, easy to maintain, and reusable across projects of different stacks and domains.
 
+This contract is frozen for the v1 pilot as described in [KB-CONTRACT-V1-PILOT-SCOPE.md](KB-CONTRACT-V1-PILOT-SCOPE.md).
+
 ## Design Principles
 
 1. Project-local storage: each project owns its own `knowledge-base/` directory.
@@ -107,6 +109,44 @@ Minimum supported keys:
 - `enabled_tier2`
 - `loading_defaults`
 
+Recommended extension keys:
+- `source_of_truth`
+- `project.summary`
+- `project.domain`
+- `project.repo_type`
+- `owners`
+- `review`
+- `agent_policy`
+
+## Metadata Contract For Markdown KB Files
+
+Canonical numbered-flat KB files should include YAML front matter with these fields:
+- `id`
+- `title`
+- `owners`
+- `audiences`
+- `last_reviewed`
+- `review_cycle_days`
+- `confidence`
+- `change_frequency`
+- `source_refs`
+- `tags`
+
+Front matter `owners` should reference keys or named values defined in `.kb-config.yml` when the project provides an `owners` block.
+
+## Tier 1 Section Schema
+
+Each canonical Tier 1 file should use the same top-level section pattern:
+1. `Purpose`
+2. `Scope`
+3. `What is true today`
+4. `Key rules`
+5. `Known gaps / uncertainty`
+6. `Linked evidence`
+7. `Next review trigger`
+
+The section content can be file-specific, but the top-level headings should remain consistent so agents and validators can reason about the files deterministically.
+
 ## Compatibility Rules
 
 ### Numbered-tree support
@@ -134,6 +174,14 @@ Recommended default:
 - keep Tier 1 concise enough for routine agent reads
 - use append-only updates for Tier 2 logs where possible
 - run the KB validator after setup or structural changes
+
+## Operational Workflow Expectations
+
+- every task should make an explicit KB impact decision
+- KB-aware PR review should check code and KB alignment together
+- `04-active-sprint.md` is the default automation target
+- business, architecture, risk, and sprint each need named owners in the downstream project
+- missing KB context must not be fabricated by agents
 
 ## Rollout Order
 

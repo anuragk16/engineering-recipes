@@ -26,6 +26,12 @@ cp knowledge-base-manager.md <your-project>/.claude/agents/knowledge-base-manage
 
 No placeholders to replace — this agent has no `{{PLACEHOLDER}}` values. It works with any project's knowledge base structure out of the box.
 
+If you are using the KB scaffold script from `engineering-recipes`, prefer:
+
+```bash
+python3 knowledge-base/scripts/scaffold_hybrid_kb.py /path/to/target-project --install-kb-manager
+```
+
 ### 2. Register in your project's CLAUDE.md
 
 The bootstrap installation prompt adds this automatically. If registering manually, add to your project's `CLAUDE.md`:
@@ -39,6 +45,14 @@ The bootstrap installation prompt adds this automatically. If registering manual
 ```
 
 If the project uses the hybrid KB contract, `knowledge-base/.kb-config.yml` is the runtime source of truth and the manager should prefer the numbered-flat layout over the older layouts.
+
+## Recommended Workflow Assets
+
+For downstream teams, pair this agent with:
+- `knowledge-base/project-files/pull_request_template.md`
+- `knowledge-base/project-files/KB-PROCESS.md`
+
+Those assets make the "KB impact" decision part of the delivery workflow instead of a manual reminder.
 
 ## Usage
 

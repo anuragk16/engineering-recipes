@@ -5,6 +5,7 @@
 - Contract owner: maintainers of `engineering-recipes`
 - Project KB owner: the downstream project team
 - Default automation owner: `knowledge-base-manager` flow or equivalent project-maintained automation
+- Pilot scope reference: [KB-CONTRACT-V1-PILOT-SCOPE.md](KB-CONTRACT-V1-PILOT-SCOPE.md)
 
 ## Change Classes
 
@@ -40,6 +41,7 @@ The following changes require maintainer review in `engineering-recipes`:
 - changes to `.kb-config.yml` schema
 - changes to sprint sync behavior
 - addition of new Tier 2 module types
+- changes that make the validator reject previously valid v1 installs
 
 ## Upgrade Rules For Downstream Projects
 
@@ -56,3 +58,4 @@ The following changes require maintainer review in `engineering-recipes`:
 - Does the change keep Tier 1 concise?
 - Is ownership still clear after the change?
 - Is migration guidance included if needed?
+- Does the change preserve the v1 pilot freeze on required files, entrypoint, and minimum config keys?

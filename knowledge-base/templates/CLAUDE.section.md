@@ -9,5 +9,13 @@ This project stores structured context in `knowledge-base/`.
 - Treat KB files as read-only unless you are the designated KB maintenance flow.
 - If the numbered flat KB does not exist, you may fall back to the older numbered tree layout or the legacy flat layout if present.
 
+### Write Policy
+- Consumer agents are read-only.
+- Only `knowledge-base-manager` may automate KB writes.
+- If KB context is missing or clearly incomplete, do not fabricate facts.
+
+### Delivery Rule
+- Every task must make an explicit KB impact decision before it is considered done.
+
 ### Graceful Degradation
 If no knowledge base exists, proceed normally without KB-aware behavior.
